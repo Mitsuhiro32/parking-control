@@ -2,11 +2,11 @@
 @section('title', 'Registro')
 @section('content')
     <div class="container container-tight py-4">
-        <div class="text-center mb-1 mt-5">
+        {{-- <div class="text-center mb-1 mt-5">
             <a href="" class="navbar-brand navbar-brand-autodark">
                 <img src="{{ asset(config('tablar.auth_logo.img.path', 'assets/logo.svg')) }}" height="36"
                     alt=""></a>
-        </div>
+        </div> --}}
         <form class="card card-md" action="{{ route('register') }}" method="post" autocomplete="off" novalidate>
             @csrf
             <div class="card-body">

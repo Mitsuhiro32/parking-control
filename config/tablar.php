@@ -10,10 +10,10 @@ return [
     |
     */
 
-    'title' => 'Tablar',
+    'title' => 'Sistema de Control de Estacionamientos',
     'title_prefix' => '',
     'title_postfix' => '',
-    'bottom_title' => 'Tablar',
+    'bottom_title' => 'Sistema de Control de Estacionamientos',
     'current_version' => 'v4.0',
 
 
@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'logo' => '<b>Tab</b>LAR',
+    'logo' => 'Sistema de Control de Estacionamientos',
     'logo_img_alt' => 'Admin Logo',
 
     /*
@@ -60,7 +60,7 @@ return [
     |
     */
 
-    'layout' => 'horizontal',
+    'layout' => 'combo',
     //boxed, combo, condensed, fluid, fluid-vertical, horizontal, navbar-overlap, navbar-sticky, rtl, vertical, vertical-right, vertical-transparent
 
     'layout_light_sidebar' => null,
@@ -109,7 +109,7 @@ return [
     | Display Alert Visibility.
     |
     */
-    'display_alert' => false,
+    'display_alert' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -125,12 +125,22 @@ return [
     'menu' => [
         // Navbar items:
         [
-            'text' => 'Home',
+            'text' => 'Inicio',
             'icon' => 'ti ti-home',
-            'url' => 'home'
+            'url' => '/'
+        ],
+        [
+            'text' => 'Estacionamiento',
+            'icon' => 'ti ti-car',
+            'url' => '#'
+        ],
+        [
+            'text' => 'Habilitar Docente',
+            'icon' => 'ti ti-user',
+            'url' => '#'
         ],
 
-        [
+        /* [
             'text' => 'Support 1',
             'url' => '#',
             'icon' => 'ti ti-help',
@@ -170,7 +180,7 @@ return [
                     'icon' => 'ti ti-article',
                 ]
             ],
-        ],
+        ], */
 
     ],
 

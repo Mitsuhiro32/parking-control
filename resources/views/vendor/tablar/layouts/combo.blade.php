@@ -9,7 +9,7 @@
     <div class="page-wrapper">
         <!-- Page Content -->
         @yield('content')
-        @include('tablar::partials.footer.bottom')
+        {{-- @include('tablar::partials.footer.bottom') --}}
     </div>
 </div>
 </body>
