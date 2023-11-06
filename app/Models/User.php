@@ -42,4 +42,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function dias()
+    {
+        return $this->belongsToMany(Dia::class, 'dia_usuarios');
+    } 
+
+    public function registros()
+    {
+        return $this->hasMany(Registro::class, 'usuario_id');
+    }
 }

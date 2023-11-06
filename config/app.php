@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Asuncion', //Zona horaria de Paraguay
 
     /*
     |--------------------------------------------------------------------------

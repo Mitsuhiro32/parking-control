@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DiaUsuarioController;
+use App\Http\Controllers\EstacionamientoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +22,8 @@ Route::get('/', function () {
     return view('home');
 })->middleware(['auth','verified'])->name('home');
 
+Route::resource('estacionamientos', EstacionamientoController::class)->middleware(['auth','verified']);
+Route::resource('diaUsuarios', DiaUsuarioController::class)->middleware(['auth','verified']);
 
 /*Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

@@ -132,12 +132,12 @@ return [
         [
             'text' => 'Estacionamiento',
             'icon' => 'ti ti-car',
-            'url' => '#'
+            'route' => 'estacionamientos.index'
         ],
         [
             'text' => 'Habilitar Docente',
             'icon' => 'ti ti-user',
-            'url' => '#'
+            'route' => 'diaUsuarios.index'
         ],
 
         /* [
