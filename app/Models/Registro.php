@@ -16,4 +16,14 @@ class Registro extends Model
         'reg_hora_entrada',
         'reg_hora_salida',
     ];
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'usuario_id');
+    }
+
+    public function estacionamiento()
+    {
+        return $this->belongsTo(Estacionamiento::class, 'estacionamiento_id');
+    }
 }

@@ -130,13 +130,18 @@ return [
             'url' => '/'
         ],
         [
+            'text' => 'Usuarios',
+            'icon' => 'ti ti-user',
+            'url' => 'usuarios.index'
+        ],
+        [
             'text' => 'Estacionamiento',
             'icon' => 'ti ti-car',
             'route' => 'estacionamientos.index'
         ],
         [
             'text' => 'Habilitar Docente',
-            'icon' => 'ti ti-user',
+            'icon' => 'ti ti-user-check',
             'route' => 'diaUsuarios.index'
         ],
 

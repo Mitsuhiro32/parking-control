@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('estacionamientos', function (Blueprint $table) {
             $table->id('est_id');
+            $table->string('est_nombre');
             $table->integer('est_capacidad');
             $table->integer('est_ocupado')->default(0);
             $table->timestamps();

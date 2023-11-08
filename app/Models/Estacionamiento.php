@@ -11,6 +11,7 @@ class Estacionamiento extends Model
     protected $primaryKey = 'est_id';
     public $table = 'estacionamientos';
     protected $fillable = [
+        'est_nombre',
         'est_capacidad',
         'est_ocupado',
     ];

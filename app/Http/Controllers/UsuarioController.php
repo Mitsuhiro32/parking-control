@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Estacionamiento;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class EstacionamientoController extends Controller
+class UsuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $estacionamientos = Estacionamiento::all();
-        return view('estacionamientos.index', compact('estacionamientos'));
+        $usuarios = User::all();
+        return view('usuarios.index', compact('usuarios'));
     }
 
     /**
@@ -29,16 +29,16 @@ class EstacionamientoController extends Controller
      */
     public function store(Request $request)
     {
-        $estacionamientos = request()->except('_token');
-        Estacionamiento::insert($estacionamientos);
+        $usuarios = request()->except('_token');
+        User::insert($usuarios);
         // Flash::success('Creado correctamente');
-        return redirect(route('estacionamientos.index'));
+        return redirect(route('usuarios.index'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Estacionamiento $estacionamiento)
+    public function show(User $usuario)
     {
         //
     }
@@ -56,10 +56,10 @@ class EstacionamientoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $estacionamientos = request()->except(['_token', '_method']);
-        Estacionamiento::where('est_id', '=', $id)->update($estacionamientos);
+        $usuarios = request()->except(['_token', '_method']);
+        User::where('id', '=', $id)->update($usuarios);
         // Flash::success('Modificado correctamente');
-        return redirect(route('estacionamientos.index'));
+        return redirect(route('usuarios.index'));
     }
 
     /**
@@ -67,8 +67,8 @@ class EstacionamientoController extends Controller
      */
     public function destroy($id)
     {
-        Estacionamiento::destroy($id);
-        // Flash::Danger('Eliminado correctamente');
-        return redirect(route('estacionamientos.index'));
+        User::destroy($id);
+        // Flash::success('Eliminado correctamente');
+        return redirect(route('usuarios.index'));
     }
 }

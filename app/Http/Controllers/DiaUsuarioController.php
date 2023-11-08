@@ -25,7 +25,7 @@ class DiaUsuarioController extends Controller
      */
     public function create()
     {
-        // return view('diaUsuarios.create');
+        //
     }
 
     /**
@@ -52,8 +52,7 @@ class DiaUsuarioController extends Controller
      */
     public function edit($id)
     {
-        $diaUsuarios = DiaUsuario::findOrFail($id);
-        return view('diaUsuarios.edit', compact('diaUsuarios'));
+        //
     }
 
     /**
@@ -62,7 +61,7 @@ class DiaUsuarioController extends Controller
     public function update(Request $request, $id)
     {
         $diaUsuarios = request()->except(['_token', '_method']);
-        DiaUsuario::where('id', '=', $id)->update($diaUsuarios);
+        DiaUsuario::where('dia_user_id', '=', $id)->update($diaUsuarios);
         // Flash::success('Modificado correctamente');
         return redirect(route('diaUsuarios.index'));
     }
