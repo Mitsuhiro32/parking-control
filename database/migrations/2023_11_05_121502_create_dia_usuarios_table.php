@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('dia_habilitado_id')->references('dia_id')->on('dias')->cascadeOnDelete()->nullOnDelete();
             $table->foreignId('usuario_id')->references('id')->on('users')->cascadeOnDelete()->nullOnDelete();
             $table->string('dia_user_facultad');
+            $table->timestamps();
         });
     }
 

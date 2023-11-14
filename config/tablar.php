@@ -42,7 +42,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'assets/tablar-logo.png',
+            'path' => 'assets/logo.svg',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -63,7 +63,7 @@ return [
     'layout' => 'combo',
     //boxed, combo, condensed, fluid, fluid-vertical, horizontal, navbar-overlap, navbar-sticky, rtl, vertical, vertical-right, vertical-transparent
 
-    'layout_light_sidebar' => null,
+    'layout_light_sidebar' => false,
     'layout_light_topbar' => true,
     'layout_enable_top_header' => false,
 
@@ -143,6 +143,11 @@ return [
             'text' => 'Habilitar Docente',
             'icon' => 'ti ti-user-check',
             'route' => 'diaUsuarios.index'
+        ],
+        [
+            'text' => 'Registros',
+            'icon' => 'ti ti-clipboard-text',
+            'route' => 'registros.index'
         ],
 
         /* [

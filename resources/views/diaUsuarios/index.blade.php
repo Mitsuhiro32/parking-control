@@ -70,7 +70,7 @@
         <br><br>
 
         <div class="col">
-            <table class="table table-striped table-bordered table-hover">
+            <table class="table table-striped table-bordered table-hover table-responsive">
                 <thead class="thead-dark">
                     <tr>
                         <th>Usuario</th>

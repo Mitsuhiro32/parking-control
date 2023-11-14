@@ -2,11 +2,11 @@
 @section('title', 'Iniciar sesión')
 @section('content')
     <div class="container container-tight py-4">
-        {{-- <div class="text-center mb-1 mt-5">
+        <div class="text-center mb-1 mt-5">
             <a href="" class="navbar-brand navbar-brand-autodark">
-                <img src="{{ asset(config('tablar.auth_logo.img.path', 'assets/logo.svg')) }}" height="36"
+                <img src="{{ asset(config('tablar.auth_logo.img.path', 'assets/logo.svg')) }}" height="36" class="navbar-brand-image d-inline-block align-middle"
                     alt=""></a>
-        </div> --}}
+        </div>
         <div class="card card-md">
             <div class="card-body">
                 <h2 class="h2 text-center mb-4">Iniciar sesión</h2>
@@ -54,7 +54,7 @@
                     <div class="mb-2">
                         <label class="form-check">
                             <input type="checkbox" class="form-check-input" />
-                            <span class="form-check-label">Recordarme en este dispositivo</span>
+                            <span class="form-check-label">Recuérdame</span>
                         </label>
                     </div>
                     <div class="form-footer">
@@ -90,8 +90,8 @@
                 </div>
             </div> --}}
         </div>
-        <div class="text-center text-muted mt-3">
+        {{-- <div class="text-center text-muted mt-3">
             ¿No tienes una cuenta aún? <a href="{{ route('register') }}" tabindex="-1">Regístrate</a>
-        </div>
+        </div> --}}
     </div>
 @endsection

@@ -18,9 +18,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nombre',
+        'apellido',
+        'ci',
+        'telefono',
         'email',
         'password',
+        'uid_tarjeta',
+        'estado',
     ];
 
     /**
@@ -46,7 +51,7 @@ class User extends Authenticatable
     public function dias()
     {
         return $this->belongsToMany(Dia::class, 'dia_usuarios');
-    } 
+    }
 
     public function registros()
     {

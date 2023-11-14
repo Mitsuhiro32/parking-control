@@ -25,6 +25,7 @@ Route::get('/', function () {
 Route::resource('estacionamientos', EstacionamientoController::class)->middleware(['auth','verified']);
 Route::resource('diaUsuarios', DiaUsuarioController::class)->middleware(['auth','verified']);
 Route::resource('usuarios', UsuarioController::class)->middleware(['auth','verified']);
+Route::resource('registros', RegistroController::class)->middleware(['auth','verified']);
 
 /*Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
