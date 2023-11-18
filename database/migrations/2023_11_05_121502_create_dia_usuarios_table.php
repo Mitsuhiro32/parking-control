@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dia_usuarios', function (Blueprint $table) {
-            $table->id('dia_user_id');
-            $table->foreignId('dia_habilitado_id')->references('dia_id')->on('dias')->cascadeOnDelete()->nullOnDelete();
+            $table->id();
+            $table->foreignId('dia_habilitado_id')->references('id')->on('dias')->cascadeOnDelete()->nullOnDelete();
             $table->foreignId('usuario_id')->references('id')->on('users')->cascadeOnDelete()->nullOnDelete();
-            $table->string('dia_user_facultad');
+            $table->string('facultad');
             $table->timestamps();
         });
     }

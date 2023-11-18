@@ -14,19 +14,19 @@ class DiaSeeder extends Seeder
     public function run(): void
     {
         Dia::create([
-            'dia_nombre' => 'Lunes',
+            'nombre' => 'Lunes',
         ]);
         Dia::create([
-            'dia_nombre' => 'Martes',
+            'nombre' => 'Martes',
         ]);
         Dia::create([
-            'dia_nombre' => 'Miércoles',
+            'nombre' => 'Miércoles',
         ]);
         Dia::create([
-            'dia_nombre' => 'Jueves',
+            'nombre' => 'Jueves',
         ]);
         Dia::create([
-            'dia_nombre' => 'Viernes',
+            'nombre' => 'Viernes',
         ]);
     }
 }

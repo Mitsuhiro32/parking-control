@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('registros', function (Blueprint $table) {
-            $table->id('reg_id');
+            $table->id();
             $table->foreignId('usuario_id')->references('id')->on('users')->cascadeOnDelete()->nullOnDelete();
-            $table->foreignId('estacionamiento_id')->references('est_id')->on('estacionamientos')->cascadeOnDelete()->nullOnDelete();
-            $table->timestamp('reg_hora_entrada')->nullable();
-            $table->timestamp('reg_hora_salida')->nullable();
+            $table->foreignId('estacionamiento_id')->references('id')->on('estacionamientos')->cascadeOnDelete()->nullOnDelete();
+            $table->timestamp('fechaHora_entrada')->nullable();
+            $table->timestamp('fechaHora_salida')->nullable();
         });
     }
 

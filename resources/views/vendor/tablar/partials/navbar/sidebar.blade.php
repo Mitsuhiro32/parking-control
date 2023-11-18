@@ -18,7 +18,7 @@
             <div class="d-none d-lg-flex">
                 @include('tablar::partials.header.theme-mode')
                 <div class="nav-item dropdown d-none d-md-flex me-3">
-                    <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1"
+                    {{-- <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1"
                         aria-label="Show notifications">
                         <!-- Download SVG icon from http://tabler-icons.io/i/bell -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -137,7 +137,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             @include('tablar::partials.header.top-right')

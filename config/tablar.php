@@ -132,7 +132,7 @@ return [
         [
             'text' => 'Usuarios',
             'icon' => 'ti ti-user',
-            'url' => 'usuarios.index'
+            'route' => 'usuarios.index'
         ],
         [
             'text' => 'Estacionamiento',

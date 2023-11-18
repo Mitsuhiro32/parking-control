@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('name');
             $table->string('apellido');
             $table->string('ci')->unique();
             $table->string('telefono');
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('uid_tarjeta')->nullable();
-            $table->boolean('estado')->default(true);
+            $table->boolean('estado')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

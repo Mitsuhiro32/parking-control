@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Dia extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'dia_id';
+    protected $primaryKey = 'id';
     public $table = 'dias';
     protected $fillable = [
-        'dia_nombre',
+        'nombre',
     ];
 
     public function usuarios()

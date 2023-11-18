@@ -61,7 +61,7 @@ class DiaUsuarioController extends Controller
     public function update(Request $request, $id)
     {
         $diaUsuarios = request()->except(['_token', '_method']);
-        DiaUsuario::where('dia_user_id', '=', $id)->update($diaUsuarios);
+        DiaUsuario::where('id', '=', $id)->update($diaUsuarios);
         // Flash::success('Modificado correctamente');
         return redirect(route('diaUsuarios.index'));
     }
@@ -71,8 +71,8 @@ class DiaUsuarioController extends Controller
      */
     public function destroy($id)
     {
-        DiaUsuario::destroy($id);
+        /* DiaUsuario::destroy($id);
         // Flash::success('Eliminado correctamente');
-        return redirect(route('diaUsuarios.index'));
+        return redirect(route('diaUsuarios.index')); */
     }
 }

@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Estacionamiento extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'est_id';
+    protected $primaryKey = 'id';
     public $table = 'estacionamientos';
     protected $fillable = [
-        'est_nombre',
-        'est_capacidad',
-        'est_ocupado',
+        'nombre',
+        'capacidad',
+        'ocupado',
     ];
 
     public function registros()

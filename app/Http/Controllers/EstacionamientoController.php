@@ -57,7 +57,7 @@ class EstacionamientoController extends Controller
     public function update(Request $request, $id)
     {
         $estacionamientos = request()->except(['_token', '_method']);
-        Estacionamiento::where('est_id', '=', $id)->update($estacionamientos);
+        Estacionamiento::where('id', '=', $id)->update($estacionamientos);
         // Flash::success('Modificado correctamente');
         return redirect(route('estacionamientos.index'));
     }

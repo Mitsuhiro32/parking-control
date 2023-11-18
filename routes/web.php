@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\DiaUsuarioController;
 use App\Http\Controllers\EstacionamientoController;
+use App\Http\Controllers\RegistroController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 

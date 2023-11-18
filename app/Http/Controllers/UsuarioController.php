@@ -67,8 +67,8 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
+        /* User::destroy($id);
         // Flash::success('Eliminado correctamente');
-        return redirect(route('usuarios.index'));
+        return redirect(route('usuarios.index')); */
     }
 }

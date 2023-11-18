@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Estacionamiento;
 use App\Models\Registro;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RegistroController extends Controller
@@ -12,7 +14,8 @@ class RegistroController extends Controller
      */
     public function index()
     {
-        //
+        $registros = Registro::all();
+        return view('registros.index', compact('registros'));
     }
 
     /**
@@ -28,7 +31,10 @@ class RegistroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $registros = request()->except('_token');
+        Registro::insert($registros);
+        // Flash::success('Creado correctamente');
+        return redirect(route('registros.index'));
     }
 
     /**
@@ -50,9 +56,12 @@ class RegistroController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Registro $registro)
+    public function update(Request $request, $id)
     {
-        //
+        $registros = request()->except(['_token', '_method']);
+        Registro::where('id', '=', $id)->update($registros);
+        // Flash::success('Actualizado correctamente');
+        return redirect(route('registros.index'));
     }
 
     /**

@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class DiaUsuario extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'dia_user_id';
+    protected $primaryKey = 'id';
     public $table = 'dia_usuarios';
     protected $fillable = [
         'dia_habilitado_id',
         'usuario_id',
-        'dia_user_facultad',
+        'facultad',
     ];
     public $timestamps = false;
 
