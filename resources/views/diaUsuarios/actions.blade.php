@@ -31,7 +31,8 @@
                                     @foreach ($usuarios as $u)
                                         <option value="{{ $u->id }}"
                                             {{ $row->usuario_id == $u->id ? 'selected' : '' }}>
-                                            {{ $u->name }}</option>
+                                            {{ $u->nombre }}</option>
+                                        </option>
                                     @endforeach
                                 </select>
                                 <br>

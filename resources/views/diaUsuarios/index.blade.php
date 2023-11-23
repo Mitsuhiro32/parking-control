@@ -31,7 +31,7 @@
                                 <select name="usuario_id" id="usuario_id" class="form-control" required>
                                     <option value="">Seleccione un usuario</option>
                                     @foreach ($usuarios as $u)
-                                        <option value="{{ $u->id }}">{{ $u->name }}</option>
+                                        <option value="{{ $u->id }}">{{ $u->nombre }}</option>
                                     @endforeach
                                 </select>
                                 <br>
@@ -69,131 +69,7 @@
 
         <br><br>
 
-        <div class="col">
-            @livewire('dia-usuario-datatable')
-            {{-- <table class="table table-striped table-bordered table-hover table-responsive">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Usuario</th>
-                        <th>Día</th>
-                        <th>Facultad</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($diaUsuarios as $diaUser)
-                        <tr>
-                            <td>{{ $diaUser->usuario->name }}</td>
-                            <td>{{ $diaUser->dia->nombre }}</td>
-                            <td>{{ $diaUser->facultad }}</td>
-                            <td>
-                                <div class="btn-group">
-                                    <div class="me-2">
-                                        <!-- Botón editar -->
-                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                            data-bs-target="#editarDiaUsuarioModal{{ $diaUser->id }}">
-                                            Editar
-                                        </button>
-
-                                        <!-- Modal para editar -->
-                                        <div class="modal fade" id="editarDiaUsuarioModal{{ $diaUser->id }}"
-                                            data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                                            aria-labelledby="editarDiaUsuarioModalLabel{{ $diaUser->id }}"
-                                            aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5"
-                                                            id="editarDiaUsuarioModalLabel{{ $diaUser->id }}">
-                                                            Editar Estacionamiento
-                                                        </h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-
-                                                    <div class="modal-body">
-                                                        <form action="{{ route('diaUsuarios.update', $diaUser) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <div class="form-group">
-                                                                <label for="usuario_id">Usuario</label>
-                                                                <br><br>
-                                                                <select name="usuario_id" id="usuario_id"
-                                                                    class="form-control" required>
-                                                                    <option value="">Seleccione un usuario
-                                                                    </option>
-                                                                    @foreach ($usuarios as $u)
-                                                                        <option value="{{ $u->id }}"
-                                                                            {{ $diaUser->usuario_id == $u->id ? 'selected' : '' }}>
-                                                                            {{ $u->name }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                                <br>
-                                                                <label for="dia_habilitado_id">Día</label>
-                                                                <br><br>
-                                                                <select name="dia_habilitado_id" id="dia_habilitado_id"
-                                                                    class="form-control" required>
-                                                                    <option value="">Seleccione un día</option>
-                                                                    @foreach ($dias as $d)
-                                                                        <option value="{{ $d->id }}"
-                                                                            {{ $diaUser->dia_habilitado_id == $d->id ? 'selected' : '' }}>
-                                                                            {{ $d->nombre }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                                <br>
-                                                                <label for="facultad">Facultad</label>
-                                                                <br><br>
-                                                                <select name="facultad" id="facultad"
-                                                                    class="form-control" required>
-                                                                    <option value="">Seleccione una facultad
-                                                                    </option>
-                                                                    <option value="FACEM"
-                                                                        {{ $diaUser->facultad == 'FACEM' ? 'selected' : '' }}>
-                                                                        FACEM</option>
-                                                                    <option value="FACAT"
-                                                                        {{ $diaUser->facultad == 'FACAT' ? 'selected' : '' }}>
-                                                                        FACAT</option>
-                                                                    <option value="FCJHS"
-                                                                        {{ $diaUser->facultad == 'FCJHS' ? 'selected' : '' }}>
-                                                                        FCJHS</option>
-                                                                    <option value="FACSA"
-                                                                        {{ $diaUser->facultad == 'FACSA' ? 'selected' : '' }}>
-                                                                        FACSA</option>
-                                                                    <option value="FACVA"
-                                                                        {{ $diaUser->facultad == 'FACVA' ? 'selected' : '' }}>
-                                                                        FACVA</option>
-                                                                    <option value="ISEDE"
-                                                                        {{ $diaUser->facultad == 'ISEDE' ? 'selected' : '' }}>
-                                                                        ISEDE</option>
-                                                                </select>
-                                                            </div>
-                                                    </div>
-
-                                                    <div class="modal-footer d-flex justify-content-between">
-                                                        <button type="submit" class="btn btn-primary">Guardar</button>
-                                                        <button type="button" class="btn btn-danger"
-                                                            data-bs-dismiss="modal">Cancelar</button>
-                                                    </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="me-2">
-                                        <form action="{{ route('diaUsuarios.destroy', $diaUser->id) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table> --}}
-        </div>
+        <!-- Datatable de estacionamientos -->
+        @livewire('dia-usuario-datatable')
     </div>
 @endsection

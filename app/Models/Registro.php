@@ -13,8 +13,8 @@ class Registro extends Model
     protected $fillable = [
         'usuario_id',
         'estacionamiento_id',
-        'fechaHora_entrada',
-        'fechaHora_salida',
+        'fecha_hora_entrada',
+        'fecha_hora_salida',
     ];
 
     public function usuario()

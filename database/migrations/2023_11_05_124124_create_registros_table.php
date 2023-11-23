@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('usuario_id')->references('id')->on('users')->cascadeOnDelete()->nullOnDelete();
             $table->foreignId('estacionamiento_id')->references('id')->on('estacionamientos')->cascadeOnDelete()->nullOnDelete();
-            $table->timestamp('fechaHora_entrada')->nullable();
-            $table->timestamp('fechaHora_salida')->nullable();
+            $table->timestamp('fecha_hora_entrada')->nullable();
+            $table->timestamp('fecha_hora_salida')->nullable();
         });
     }
 

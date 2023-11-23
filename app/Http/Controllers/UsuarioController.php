@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -30,6 +31,7 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         $usuarios = request()->except('_token');
+        $usuarios['password'] = Hash::make($usuarios['password']); // Encriptar la contraseña
         User::insert($usuarios);
         // Flash::success('Creado correctamente');
         return redirect(route('usuarios.index'));

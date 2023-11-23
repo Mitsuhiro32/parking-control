@@ -14,23 +14,58 @@ class EstacionamientoDatatable extends DataTableComponent
 
     public ?int $searchFilterDebounce = 500;
 
+    public array $bulkActions = [
+        'exportSelected' => 'Export',
+    ];
+
+    public function exportSelected()
+    {
+        dd($this->selectedKeys());
+    }
+
+    public function filters(): array
+    {
+        return [
+            /* SelectFilter::make('Estado')
+                ->options([
+                    '' => 'Todos',
+                    '1' => 'Activo',
+                    '0' => 'Inactivo',
+                ])
+                ->filter(function (Builder $builder, string $value) {
+                    if ($value === '1') {
+                        $builder->where('estado', true);
+                    } elseif ($value === '0') {
+                        $builder->where('estado', false);
+                    }
+                }), */
+        ];
+    }
+
     public function configure(): void
     {
         $this->setPrimaryKey('id');
         $this->setSingleSortingStatus(false);
+        $this->setDefaultSort('id', 'asc');
     }
 
     public function columns(): array
     {
         return [
             Column::make("Id", "id")
-                ->sortable(),
+                ->sortable()
+                ->collapseOnMobile()
+                ->setSortingPillDirections('Asc', 'Desc'),
             Column::make("Nombre", "nombre")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Capacidad", "capacidad")
-                ->sortable(),
+                ->sortable()
+                ->setSortingPillDirections('Asc', 'Desc'),
             Column::make("Ocupado", "ocupado")
-                ->sortable(),
+                ->sortable()
+                ->collapseOnMobile()
+                ->setSortingPillDirections('Asc', 'Desc'),
             Column::make('Acciones')
                 ->label(
                     fn($row) => view('estacionamientos.actions', compact('row'))

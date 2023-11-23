@@ -28,14 +28,3 @@ Route::resource('estacionamientos', EstacionamientoController::class)->middlewar
 Route::resource('diaUsuarios', DiaUsuarioController::class)->middleware(['auth','verified']);
 Route::resource('usuarios', UsuarioController::class)->middleware(['auth','verified']);
 Route::resource('registros', RegistroController::class)->middleware(['auth','verified']);
-
-/*Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home'); */
-

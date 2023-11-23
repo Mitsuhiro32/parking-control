@@ -1,7 +1,7 @@
 <div class="btn-group">
     <div class="me-2">
         <!-- Botón editar -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
             data-bs-target="#editarUsuariosModal{{ $row->id }}">
             Editar
         </button>
@@ -26,8 +26,8 @@
                         <div class="form-group">
                             <label for="name">Nombre</label>
                             <br><br>
-                            <input type="text" class="form-control" name="name" id="name"
-                                placeholder="Nombre" value="{{ $row->name }}" required>
+                            <input type="text" class="form-control" name="nombre" id="nombre"
+                                placeholder="Nombre" value="{{ $row->nombre }}" required>
                             <br>
                             <label for="apellido">Apellido</label>
                             <br><br>
@@ -52,7 +52,7 @@
                             <label for="password">Contraseña</label>
                             <br><br>
                             <input type="text" class="form-control" name="password" id="password"
-                                placeholder="Contraseña" value="{{ $row->password }}" required>
+                                placeholder="Contraseña" value="{{ $row->password }}">
                             <br>
                             <label for="uid_tarjeta">UID Tarjeta</label>
                             <br><br>
