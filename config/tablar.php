@@ -135,12 +135,12 @@ return [
             'route' => 'usuarios.index'
         ],
         [
-            'text' => 'Estacionamiento',
+            'text' => 'Estacionamientos',
             'icon' => 'ti ti-car',
             'route' => 'estacionamientos.index'
         ],
         [
-            'text' => 'Habilitar Docente',
+            'text' => 'Habilitar Usuarios',
             'icon' => 'ti ti-user-check',
             'route' => 'diaUsuarios.index'
         ],

@@ -13,7 +13,7 @@
                     <form class="card" action="{{ route('password.email') }}" method="post" novalidate>
                         @csrf
                         <div class="card-body p-6">
-                            <div class="card-title text-center">@lang('Olvidé mi contraseña')</div>
+                            <div class="card-title text-center">@lang('Recuperar contraseña')</div>
                             <div class="form-group">
                                 <label class="form-label" for="exampleInputEmail1">@lang('Dirección de correo electrónico')</label>
                                 <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
@@ -29,7 +29,7 @@
                             <div class="form-footer">
                                 <div class="d-flex justify-content-between">
                                     <div class="col-auto">
-                                        <button type="submit" class="btn btn-primary btn-block">@lang('Enviar nueva contraseña')</button>
+                                        <button type="submit" class="btn btn-primary btn-block">@lang('Enviar')</button>
                                     </div>
                                     <div class="col-auto ml-auto">
                                         <button type="button" onclick="window.history.back()"

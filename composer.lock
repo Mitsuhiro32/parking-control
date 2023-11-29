@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "773db2b2e9f0abf60ad56135ebe09ac9",
+    "content-hash": "8d839ac0574bdb5ba1a4e0b0e51f630d",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1119,6 +1119,68 @@
                 }
             ],
             "time": "2023-08-27T10:19:19+00:00"
+        },
+        {
+            "name": "jantinnerezo/livewire-alert",
+            "version": "v3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jantinnerezo/livewire-alert.git",
+                "reference": "52fbb4edf1f143d211aee2b5948eacbe81520163"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jantinnerezo/livewire-alert/zipball/52fbb4edf1f143d211aee2b5948eacbe81520163",
+                "reference": "52fbb4edf1f143d211aee2b5948eacbe81520163",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.5 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0",
+                "livewire/livewire": "^3.0",
+                "php": "^8.1|^8.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.15|^7.0|^8.0",
+                "phpunit/phpunit": "^9.5|^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Jantinnerezo\\LivewireAlert\\LivewireAlertServiceProvider"
+                    ],
+                    "aliases": {
+                        "LivewireAlert": "Jantinnerezo\\LivewireAlert\\LivewireAlertFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jantinnerezo\\LivewireAlert\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jantinn Erezo",
+                    "email": "erezojantinn@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This package provides a simple alert utilities for your livewire components.",
+            "homepage": "https://github.com/jantinnerezo/livewire-alert",
+            "keywords": [
+                "jantinnerezo",
+                "livewire-alert"
+            ],
+            "support": {
+                "issues": "https://github.com/jantinnerezo/livewire-alert/issues",
+                "source": "https://github.com/jantinnerezo/livewire-alert/tree/v3.0.1"
+            },
+            "time": "2023-10-14T14:25:50+00:00"
         },
         {
             "name": "laravel/framework",
@@ -6849,16 +6911,16 @@
         },
         {
             "name": "laravel-lang/lang",
-            "version": "13.8.0",
+            "version": "13.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Lang/lang.git",
-                "reference": "54bb87a2644fb3cb222a20861b1f7c877a6d1c2a"
+                "reference": "6775a42c3a208fb1f14a3f167e238ce49bf8cf97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Lang/lang/zipball/54bb87a2644fb3cb222a20861b1f7c877a6d1c2a",
-                "reference": "54bb87a2644fb3cb222a20861b1f7c877a6d1c2a",
+                "url": "https://api.github.com/repos/Laravel-Lang/lang/zipball/6775a42c3a208fb1f14a3f167e238ce49bf8cf97",
+                "reference": "6775a42c3a208fb1f14a3f167e238ce49bf8cf97",
                 "shasum": ""
             },
             "require": {
@@ -6905,7 +6967,7 @@
                 "issues": "https://github.com/Laravel-Lang/lang/issues",
                 "source": "https://github.com/Laravel-Lang/lang"
             },
-            "time": "2023-11-22T08:33:39+00:00"
+            "time": "2023-11-26T14:49:08+00:00"
         },
         {
             "name": "laravel-lang/locales",
@@ -7624,16 +7686,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "10.1.8",
+            "version": "10.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "84838eed9ded511f61dc3e8b5944a52d9017b297"
+                "reference": "a56a9ab2f680246adcf3db43f38ddf1765774735"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/84838eed9ded511f61dc3e8b5944a52d9017b297",
-                "reference": "84838eed9ded511f61dc3e8b5944a52d9017b297",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/a56a9ab2f680246adcf3db43f38ddf1765774735",
+                "reference": "a56a9ab2f680246adcf3db43f38ddf1765774735",
                 "shasum": ""
             },
             "require": {
@@ -7690,7 +7752,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
                 "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/10.1.8"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/10.1.9"
             },
             "funding": [
                 {
@@ -7698,7 +7760,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-15T13:31:15+00:00"
+            "time": "2023-11-23T12:23:20+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",

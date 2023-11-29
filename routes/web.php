@@ -3,6 +3,7 @@
 use App\Http\Controllers\DiaUsuarioController;
 use App\Http\Controllers\EstacionamientoController;
 use App\Http\Controllers\RegistroController;
+use App\Http\Controllers\SerialController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -28,3 +29,4 @@ Route::resource('estacionamientos', EstacionamientoController::class)->middlewar
 Route::resource('diaUsuarios', DiaUsuarioController::class)->middleware(['auth','verified']);
 Route::resource('usuarios', UsuarioController::class)->middleware(['auth','verified']);
 Route::resource('registros', RegistroController::class)->middleware(['auth','verified']);
+Route::post('serialRead', [UsuarioController::class, 'serialRead'])->middleware(['auth','verified'])->name('serialRead');

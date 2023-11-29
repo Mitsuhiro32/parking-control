@@ -54,7 +54,6 @@ class EstacionamientoDatatable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->sortable()
-                ->collapseOnMobile()
                 ->setSortingPillDirections('Asc', 'Desc'),
             Column::make("Nombre", "nombre")
                 ->sortable()
@@ -71,6 +70,5 @@ class EstacionamientoDatatable extends DataTableComponent
                     fn($row) => view('estacionamientos.actions', compact('row'))
                 )
         ];
-
     }
 }

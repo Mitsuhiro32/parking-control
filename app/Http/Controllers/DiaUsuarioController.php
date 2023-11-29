@@ -6,9 +6,11 @@ use App\Models\Dia;
 use App\Models\DiaUsuario;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class DiaUsuarioController extends Controller
 {
+    use LivewireAlert;
     /**
      * Display a listing of the resource.
      */
@@ -35,7 +37,7 @@ class DiaUsuarioController extends Controller
     {
         $diaUsuarios = request()->except('_token');
         DiaUsuario::insert($diaUsuarios);
-        // Flash::success('Creado correctamente');
+        $this->flash('success', 'Creado correctamente');
         return redirect(route('diaUsuarios.index'));
     }
 
@@ -62,7 +64,7 @@ class DiaUsuarioController extends Controller
     {
         $diaUsuarios = request()->except(['_token', '_method']);
         DiaUsuario::where('id', '=', $id)->update($diaUsuarios);
-        // Flash::success('Modificado correctamente');
+        $this->flash('success', 'Modificado correctamente');
         return redirect(route('diaUsuarios.index'));
     }
 
@@ -72,7 +74,7 @@ class DiaUsuarioController extends Controller
     public function destroy($id)
     {
         /* DiaUsuario::destroy($id);
-        // Flash::success('Eliminado correctamente');
+        $this->flash('warning', 'Eliminado correctamente');
         return redirect(route('diaUsuarios.index')); */
     }
 }

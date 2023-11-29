@@ -61,9 +61,28 @@
                                 <br><br>
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="uid_tarjeta" id="uid_tarjeta"
-                                        placeholder="UID Tarjeta" disabled>
+                                        placeholder="UID Tarjeta" readonly>
                                     <button class="btn btn-primary" type="button" id="asignar-btn">Asignar</button>
                                 </div>
+
+                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#asignar-btn').click(function() {
+                                            $.ajax({
+                                                url: "{{ route('serialRead') }}",
+                                                type: "POST",
+                                                dataType: 'json',
+                                                success: function(data) {
+                                                    $('#uid_tarjeta').val(data.uid);
+                                                },
+                                                error: function() {
+                                                    alert("Error al obtener UID");
+                                                }
+                                            });
+                                        });
+                                    });
+                                </script>
                             </div>
                     </div>
 

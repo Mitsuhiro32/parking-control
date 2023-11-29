@@ -6,6 +6,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 
 class UsuarioDatatable extends DataTableComponent
@@ -46,6 +47,7 @@ class UsuarioDatatable extends DataTableComponent
         $this->setPrimaryKey('id');
         $this->setSingleSortingStatus(false);
         $this->setDefaultSort('id', 'asc');
+
     }
 
     public function columns(): array
@@ -53,7 +55,7 @@ class UsuarioDatatable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->sortable()
-                ->collapseOnMobile(),
+                ->setSortingPillDirections('Asc', 'Desc'),
             Column::make("Nombre", "nombre")
                 ->sortable()
                 ->searchable(),
@@ -74,11 +76,8 @@ class UsuarioDatatable extends DataTableComponent
             Column::make("Uid tarjeta", "uid_tarjeta")
                 ->sortable()
                 ->setSortingPillDirections('Asc', 'Desc'),
-            Column::make("Estado", "estado")
-                ->sortable()
-                ->format(function ($value) {
-                    return $value ? 'Activo' : 'Inactivo';
-                }),
+            BooleanColumn::make("Estado", "estado")
+                ->sortable(),
             Column::make('Acciones')
                 ->label(
                     fn ($row) => view('usuarios.actions', compact('row'))

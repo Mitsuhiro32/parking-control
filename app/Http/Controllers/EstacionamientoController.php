@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Estacionamiento;
 use Illuminate\Http\Request;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class EstacionamientoController extends Controller
 {
+    use LivewireAlert;
     /**
      * Display a listing of the resource.
      */
@@ -31,7 +33,7 @@ class EstacionamientoController extends Controller
     {
         $estacionamientos = request()->except('_token');
         Estacionamiento::insert($estacionamientos);
-        // Flash::success('Creado correctamente');
+        $this->flash('success', 'Creado correctamente');
         return redirect(route('estacionamientos.index'));
     }
 
@@ -58,7 +60,7 @@ class EstacionamientoController extends Controller
     {
         $estacionamientos = request()->except(['_token', '_method']);
         Estacionamiento::where('id', '=', $id)->update($estacionamientos);
-        // Flash::success('Modificado correctamente');
+        $this->flash('success', 'Modificado correctamente');
         return redirect(route('estacionamientos.index'));
     }
 
@@ -68,7 +70,7 @@ class EstacionamientoController extends Controller
     public function destroy($id)
     {
         Estacionamiento::destroy($id);
-        // Flash::Danger('Eliminado correctamente');
+        $this->flash('warning', 'Eliminado correctamente');
         return redirect(route('estacionamientos.index'));
     }
 }

@@ -49,11 +49,11 @@
                             <input type="text" class="form-control" name="email" id="email"
                                 placeholder="Correo Electrónico" value="{{ $row->email }}" required>
                             <br>
-                            <label for="password">Contraseña</label>
+                            {{--<label for="password">Contraseña</label>
                             <br><br>
-                            <input type="text" class="form-control" name="password" id="password"
+                            <input type="password" class="form-control" name="password" id="password"
                                 placeholder="Contraseña" value="{{ $row->password }}">
-                            <br>
+                            <br> --}}
                             <label for="uid_tarjeta">UID Tarjeta</label>
                             <br><br>
                             <div class="input-group">
@@ -73,11 +73,11 @@
         </div>
     </div>
     <div class="me-2">
-        <form action="{{ route('diaUsuarios.update', $row) }}" method="POST">
+        <form action="{{ route('usuarios.update', $row) }}" method="POST">
             @csrf
             @method('PUT')
-            <input type="hidden" name="estado" value="{{ $row->estado ? '0' : '1' }}">
-            <input type="hidden" name="uid_tarjeta" value="{{ $row->uid_tarjeta }}">
+            <input type="hidden" name="estado" value="{{ $row->estado ? 0 : 1 }}">
+            {{-- <input type="hidden" name="uid_tarjeta" value="{{ $row->estado ? $row->uid_tarjeta : null }}"> --}}
             <button type="submit" class="btn btn-{{ $row->estado ? 'danger' : 'success' }}">
                 {{ $row->estado ? 'Desactivar' : 'Activar' }}
             </button>
