@@ -47,7 +47,6 @@ class UsuarioDatatable extends DataTableComponent
         $this->setPrimaryKey('id');
         $this->setSingleSortingStatus(false);
         $this->setDefaultSort('id', 'asc');
-
     }
 
     public function columns(): array
@@ -75,7 +74,10 @@ class UsuarioDatatable extends DataTableComponent
                 ->collapseOnMobile(),
             Column::make("Uid tarjeta", "uid_tarjeta")
                 ->sortable()
-                ->setSortingPillDirections('Asc', 'Desc'),
+                ->setSortingPillDirections('Asc', 'Desc')
+                ->format(function ($value) {
+                    return $value ? $value : "No asignado";
+                }),
             BooleanColumn::make("Estado", "estado")
                 ->sortable(),
             Column::make('Acciones')

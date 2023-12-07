@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-require_once __DIR__ . '/public/phpSerial/PhpSerial.php';
-
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use PhpSerial;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use symfony\Component\Process\Process;
 
 class UsuarioController extends Controller
 {
@@ -77,35 +76,5 @@ class UsuarioController extends Controller
         /* User::destroy($id);
         $this->flash('warning', 'Eliminado correctamente');
         return redirect(route('usuarios.index')); */
-    }
-
-    public function serialRead(Request $request)
-    {
-        $serial = new PhpSerial();
-
-        // Indicamos el dispositivo que vamos a usar para comunicaciones
-        $serial->deviceSet("COM5");
-
-        // Configuramos el puerto serie con los mismos parámetros que Arduino
-        $serial->confBaudRate(9600);
-        $serial->confParity("none");
-        $serial->confCharacterLength(8);
-        $serial->confStopBits(1);
-        $serial->confFlowControl("none");
-
-        // Abrimos el puerto serie
-        $serial->deviceOpen();
-
-        // Enviamos el carácter a
-        $serial->sendMessage('a');
-
-        // Leemos el string que nos devuelve Arduino
-        $uid = $serial->readPort();
-
-        // Cerramos el puerto serie
-        $serial->deviceClose();
-
-        // Mostramos el string
-        return response()->json(['uid' => $uid]);
     }
 }
