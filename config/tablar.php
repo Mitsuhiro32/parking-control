@@ -26,8 +26,8 @@ return [
     |
     */
 
-    'logo' => 'Sistema de Control de Estacionamientos',
-    'logo_img_alt' => 'Admin Logo',
+    'logo' => '/public/assets/logo.png',
+    'logo_img_alt' => 'Sistema de Control de Estacionamientos',
 
     /*
     |--------------------------------------------------------------------------
@@ -149,49 +149,30 @@ return [
             'icon' => 'ti ti-clipboard-text',
             'route' => 'registros.index'
         ],
-
-        /* [
-            'text' => 'Support 1',
+        [
+            'text' => 'Auditoria',
             'url' => '#',
-            'icon' => 'ti ti-help',
-            'active' => ['support1'],
+            'icon' => 'ti ti-eye-search',
+            'active' => ['auditoria'],
             'submenu' => [
                 [
-                    'text' => 'Ticket',
-                    'url' => 'support1',
-                    'icon' => 'ti ti-article',
-                ]
+                    'text' => 'Usuarios',
+                    'url' => 'auditoria/usuarios',
+                ],
+                [
+                    'text' => 'Estacionamientos',
+                    'url' => 'auditoria/estacionamientos',
+                ],
+                [
+                    'text' => 'Habilitar Usuarios',
+                    'url' => 'auditoria/diaUsuarios',
+                ],
+                [
+                    'text' => 'Registros',
+                    'url' => 'auditoria/registros',
+                ],
             ],
         ],
-
-        [
-            'text' => 'Support 2',
-            'url' => '#',
-            'icon' => 'ti ti-help',
-            'active' => ['support2'],
-            'submenu' => [
-                [
-                    'text' => 'Ticket',
-                    'url' => 'support2',
-                    'icon' => 'ti ti-article',
-                ]
-            ],
-        ],
-
-        [
-            'text' => 'Support 3',
-            'url' => '#',
-            'icon' => 'ti ti-help',
-            'active' => ['support3'],
-            'submenu' => [
-                [
-                    'text' => 'Ticket',
-                    'url' => 'support3',
-                    'icon' => 'ti ti-article',
-                ]
-            ],
-        ], */
-
     ],
 
     /*

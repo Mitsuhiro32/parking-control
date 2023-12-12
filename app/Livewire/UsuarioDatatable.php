@@ -14,14 +14,14 @@ class UsuarioDatatable extends DataTableComponent
     protected $model = User::class;
     public ?int $searchFilterDebounce = 500;
 
-    public array $bulkActions = [
+    /* public array $bulkActions = [
         'exportSelected' => 'Export',
     ];
 
     public function exportSelected()
     {
         dd($this->selectedKeys());
-    }
+    } */
 
     public function filters(): array
     {
@@ -37,6 +37,32 @@ class UsuarioDatatable extends DataTableComponent
                         $builder->where('estado', true);
                     } elseif ($value === '0') {
                         $builder->where('estado', false);
+                    }
+                }),
+            /* SelectFilter::make('Rol')
+                ->options([
+                    '' => 'Todos',
+                    '1' => 'Administrador',
+                    '2' => 'Usuario',
+                ])
+                ->filter(function (Builder $builder, string $value) {
+                    if ($value === '1') {
+                        $builder->where('rol', 1);
+                    } elseif ($value === '2') {
+                        $builder->where('rol', 2);
+                    }
+                }), */
+            SelectFilter::make('UID Tarjeta')
+                ->options([
+                    '' => 'Todos',
+                    '1' => 'Asignado',
+                    '0' => 'No asignado',
+                ])
+                ->filter(function (Builder $builder, string $value) {
+                    if ($value === '1') {
+                        $builder->whereNotNull('uid_tarjeta');
+                    } elseif ($value === '0') {
+                        $builder->whereNull('uid_tarjeta');
                     }
                 }),
         ];

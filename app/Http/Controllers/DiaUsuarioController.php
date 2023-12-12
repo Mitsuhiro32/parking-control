@@ -73,8 +73,8 @@ class DiaUsuarioController extends Controller
      */
     public function destroy($id)
     {
-        /* DiaUsuario::destroy($id);
+        DiaUsuario::destroy($id);
         $this->flash('warning', 'Eliminado correctamente');
-        return redirect(route('diaUsuarios.index')); */
+        return redirect(route('diaUsuarios.index'));
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->integer('capacidad');
             $table->integer('ocupado')->default(0);
+            $table->boolean('estado')->default(1);
             $table->timestamps();
         });
     }

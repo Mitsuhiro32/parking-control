@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('registros', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('usuario_id')->references('id')->on('users')->cascadeOnDelete()->nullOnDelete();
-            $table->foreignId('estacionamiento_id')->references('id')->on('estacionamientos')->cascadeOnDelete()->nullOnDelete();
+            $table->foreignId('usuario_id')->references('id')->on('users');
+            $table->foreignId('estacionamiento_id')->references('id')->on('estacionamientos');
             $table->timestamp('fecha_hora_entrada')->nullable();
             $table->timestamp('fecha_hora_salida')->nullable();
         });

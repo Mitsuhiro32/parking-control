@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Estacionamiento;
+use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 
@@ -14,14 +15,14 @@ class EstacionamientoDatatable extends DataTableComponent
 
     public ?int $searchFilterDebounce = 500;
 
-    public array $bulkActions = [
+    /* public array $bulkActions = [
         'exportSelected' => 'Export',
     ];
 
     public function exportSelected()
     {
         dd($this->selectedKeys());
-    }
+    } */
 
     public function filters(): array
     {
@@ -65,6 +66,8 @@ class EstacionamientoDatatable extends DataTableComponent
                 ->sortable()
                 ->collapseOnMobile()
                 ->setSortingPillDirections('Asc', 'Desc'),
+            BooleanColumn::make("Estado", "estado")
+            ->sortable(),
             Column::make('Acciones')
                 ->label(
                     fn($row) => view('estacionamientos.actions', compact('row'))

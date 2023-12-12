@@ -46,10 +46,13 @@
         </div>
     </div>
     <div class="me-2">
-        <form action="{{ route('estacionamientos.destroy', $row->id) }}" method="POST">
+        <form action="{{ route('estacionamientos.update', $row) }}" method="POST">
             @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">Eliminar</button>
+            @method('PUT')
+            <input type="hidden" name="estado" value="{{ $row->estado ? 0 : 1 }}">
+            <button type="submit" class="btn btn-{{ $row->estado ? 'danger' : 'success' }}">
+                {{ $row->estado ? 'Desactivar' : 'Activar' }}
+            </button>
         </form>
     </div>
 </div>
