@@ -11,9 +11,15 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 class DiaUsuarioController extends Controller
 {
     use LivewireAlert;
-    /**
-     * Display a listing of the resource.
-     */
+
+    public function __construct()
+    {
+        $this->middleware('permission:diaUsuarios.index')->only('index');
+        $this->middleware('permission:diaUsuarios.store')->only('store');
+        $this->middleware('permission:diaUsuarios.update')->only('update');
+        $this->middleware('permission:diaUsuarios.delete')->only('destroy');
+    }
+
     public function index()
     {
         $diaUsuarios = DiaUsuario::all();
@@ -22,17 +28,6 @@ class DiaUsuarioController extends Controller
         return view('diaUsuarios.index', compact('diaUsuarios', 'dias', 'usuarios'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $diaUsuarios = request()->except('_token');
@@ -41,25 +36,6 @@ class DiaUsuarioController extends Controller
         return redirect(route('diaUsuarios.index'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(DiaUsuario $diaUsuario)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         $diaUsuarios = request()->except(['_token', '_method']);
@@ -68,9 +44,6 @@ class DiaUsuarioController extends Controller
         return redirect(route('diaUsuarios.index'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         DiaUsuario::destroy($id);

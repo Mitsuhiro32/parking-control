@@ -72,6 +72,7 @@ class EstacionamientoDatatable extends DataTableComponent
                 ->label(
                     fn($row) => view('estacionamientos.actions', compact('row'))
                 )
+                // ->hideIf(!auth()->user()->can('estacionamientos.editar') && !auth()->user()->can('estacionamientos.desactivar'))
         ];
     }
 }

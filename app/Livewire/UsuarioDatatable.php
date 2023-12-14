@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
+use Spatie\Permission\Models\Role;
 
 class UsuarioDatatable extends DataTableComponent
 {
@@ -39,19 +40,23 @@ class UsuarioDatatable extends DataTableComponent
                         $builder->where('estado', false);
                     }
                 }),
-            /* SelectFilter::make('Rol')
+            SelectFilter::make('Rol')
                 ->options([
                     '' => 'Todos',
-                    '1' => 'Administrador',
-                    '2' => 'Usuario',
+                    'Administrador' => 'Administrador',
+                    'Usuario' => 'Usuario',
                 ])
                 ->filter(function (Builder $builder, string $value) {
-                    if ($value === '1') {
-                        $builder->where('rol', 1);
-                    } elseif ($value === '2') {
-                        $builder->where('rol', 2);
+                    if ($value === 'Administrador') {
+                        $builder->whereHas('roles', function ($query) {
+                            $query->where('name', 'Administrador');
+                        });
+                    } elseif ($value === 'Usuario') {
+                        $builder->whereHas('roles', function ($query) {
+                            $query->where('name', 'Usuario');
+                        });
                     }
-                }), */
+                }),
             SelectFilter::make('UID Tarjeta')
                 ->options([
                     '' => 'Todos',
@@ -104,12 +109,15 @@ class UsuarioDatatable extends DataTableComponent
                 ->format(function ($value) {
                     return $value ? $value : "No asignado";
                 }),
+            Column::make("Rol", "rol")
+                ->sortable(),
             BooleanColumn::make("Estado", "estado")
                 ->sortable(),
             Column::make('Acciones')
                 ->label(
                     fn ($row) => view('usuarios.actions', compact('row'))
                 )
+                // ->hideIf(!auth()->user()->can('usuarios.editar') && !auth()->user()->can('usuarios.desactivar'))
         ];
     }
 }

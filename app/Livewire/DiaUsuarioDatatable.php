@@ -95,6 +95,7 @@ class DiaUsuarioDatatable extends DataTableComponent
                 ->label(
                     fn ($row) => view(('diaUsuarios.actions'), compact('row'))->with(['dias' => $dias, 'usuarios' => $usuarios])
                 )
+                // ->hideIf(!auth()->user()->can('diaUsuarios.editar') && !auth()->user()->can('diaUsuarios.eliminar'))
         ];
     }
 }

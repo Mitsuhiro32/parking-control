@@ -23,9 +23,9 @@ Auth::routes();
 
 Route::get('/', function () {
     return view('home');
-})->middleware(['auth','verified'])->name('home');
+})->middleware(['can:home','auth','verified'])->name('home');
 
-Route::resource('estacionamientos', EstacionamientoController::class)->middleware(['auth','verified']);
-Route::resource('diaUsuarios', DiaUsuarioController::class)->middleware(['auth','verified']);
-Route::resource('usuarios', UsuarioController::class)->middleware(['auth','verified']);
-Route::resource('registros', RegistroController::class)->middleware(['auth','verified']);
+Route::resource('estacionamientos', EstacionamientoController::class)->only('index','store','update')->middleware(['auth','verified']);
+Route::resource('diaUsuarios', DiaUsuarioController::class)->only('index','store','update','destroy')->middleware(['auth','verified']);
+Route::resource('usuarios', UsuarioController::class)->only('index','store','update')->middleware(['auth','verified']);
+Route::resource('registros', RegistroController::class)->only('index')->middleware(['auth','verified']);

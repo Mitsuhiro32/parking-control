@@ -16,10 +16,11 @@ class UserSeeder extends Seeder
         User::create([
             'nombre' => 'Admin',
             'apellido' => 'Admin',
-            'ci' => '1234567',
-            'telefono' => '1234567',
-            'email' => 'admin@gmail.com',
+            'ci' => '1.234.567',
+            'telefono' => '0985456123',
+            'email' => 'admin@admin.com',
             'password' => bcrypt('admin123'),
-        ]);
+            'rol' => 'Administrador',
+        ])->assignRole('Administrador');
     }
 }

@@ -127,32 +127,38 @@ return [
         [
             'text' => 'Inicio',
             'icon' => 'ti ti-home',
-            'url' => '/'
+            'url' => '/',
+            'can' => 'home'
         ],
         [
             'text' => 'Usuarios',
             'icon' => 'ti ti-user',
-            'route' => 'usuarios.index'
+            'route' => 'usuarios.index',
+            'can' => ['usuarios.index', 'usuarios.store', 'usuarios.update']
         ],
         [
             'text' => 'Estacionamientos',
             'icon' => 'ti ti-car',
-            'route' => 'estacionamientos.index'
+            'route' => 'estacionamientos.index',
+            'can' => ['estacionamientos.index', 'estacionamientos.store', 'estacionamientos.update']
         ],
         [
             'text' => 'Habilitar Usuarios',
             'icon' => 'ti ti-user-check',
-            'route' => 'diaUsuarios.index'
+            'route' => 'diaUsuarios.index',
+            'can' => ['diaUsuarios.index', 'diaUsuarios.store', 'diaUsuarios.update', 'diaUsuarios.delete']
         ],
         [
             'text' => 'Registros',
             'icon' => 'ti ti-clipboard-text',
-            'route' => 'registros.index'
+            'route' => 'registros.index',
+            'can' => ['registros.index', 'registros.view']
         ],
         [
             'text' => 'Auditoria',
             'url' => '#',
             'icon' => 'ti ti-eye-search',
+            'can' => 'auditoria',
             'active' => ['auditoria'],
             'submenu' => [
                 [

@@ -45,6 +45,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <br>
                     </div>
                     <div class="mb-2">
                         <span class="form-label-description">
