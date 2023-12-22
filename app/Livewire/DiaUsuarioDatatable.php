@@ -5,7 +5,6 @@ namespace App\Livewire;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\DiaUsuario;
-use App\Models\Dia;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
@@ -43,10 +42,10 @@ class DiaUsuarioDatatable extends DataTableComponent
 
             SelectFilter::make('Dia habilitado')
                 ->options(
-                    Dia::all()->pluck('nombre', 'id')->toArray()
+                    DiaUsuario::all()->pluck('dia', 'dia')->toArray(),
                 )
                 ->filter(function (Builder $builder, string $value) {
-                    $builder->where('dia_habilitado_id', $value);
+                    $builder->where('dia', $value);
                 }),
 
             SelectFilter::make('Facultad')
@@ -68,7 +67,6 @@ class DiaUsuarioDatatable extends DataTableComponent
 
     public function columns(): array
     {
-        $dias = Dia::all();
         $usuarios = User::all();
 
         return [
@@ -82,18 +80,14 @@ class DiaUsuarioDatatable extends DataTableComponent
                     $usuario = User::find($value);
                     return $usuario ? $usuario->nombre : '';
                 }),
-            Column::make("Dia habilitado", "dia_habilitado_id")
+            Column::make("Dia habilitado", "dia")
                 ->sortable()
-                ->searchable()
-                ->format(function ($value) {
-                    $dia = Dia::find($value);
-                    return $dia ? $dia->nombre : '';
-                }),
+                ->searchable(),
             Column::make("Facultad", "facultad")
                 ->sortable(),
             Column::make('Acciones')
                 ->label(
-                    fn ($row) => view(('diaUsuarios.actions'), compact('row'))->with(['dias' => $dias, 'usuarios' => $usuarios])
+                    fn ($row) => view(('diaUsuarios.actions'), compact('row'))->with(['usuarios' => $usuarios])
                 )
                 // ->hideIf(!auth()->user()->can('diaUsuarios.editar') && !auth()->user()->can('diaUsuarios.eliminar'))
         ];

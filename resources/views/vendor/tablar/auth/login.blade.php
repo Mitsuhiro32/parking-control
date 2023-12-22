@@ -4,8 +4,8 @@
     <div class="container container-tight py-4">
         <div class="text-center mb-1 mt-5">
             <a href="" class="navbar-brand navbar-brand-autodark">
-                <img src="{{ asset(config('tablar.auth_logo.img.path', 'assets/logo.svg')) }}" height="36" class="navbar-brand-image d-inline-block align-middle"
-                    alt=""></a>
+                <img src="{{ asset(config('tablar.auth_logo.img.path', 'assets/logo.svg')) }}" height="36"
+                    class="navbar-brand-image d-inline-block align-middle" alt=""></a>
         </div>
         <div class="card card-md">
             <div class="card-body">
@@ -24,11 +24,9 @@
                         <label class="form-label">
                             Contraseña
                         </label>
-                        <div class="input-group input-group-flat">
-                            <input type="password" name="password"
-                                class="form-control @error('password') is-invalid @enderror" placeholder="Tu contraseña"
-                                autocomplete="off">
-                            {{-- <span class="input-group-text">
+                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+                            placeholder="Tu contraseña" autocomplete="off">
+                        {{-- <span class="input-group-text">
                                 <a href="#" class="link-secondary" title="Mostrar contraseña"
                                     data-bs-toggle="tooltip"><!-- Descargar icono SVG de http://tabler-icons.io/i/eye -->
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -41,10 +39,9 @@
                                     </svg>
                                 </a>
                             </span> --}}
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                         <br>
                     </div>
                     <div class="mb-2">

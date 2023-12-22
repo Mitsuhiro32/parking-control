@@ -40,10 +40,20 @@ class UsuarioController extends Controller
     public function update(Request $request, $id)
     {
         $usuario = User::findOrFail($id);
-        $usuario->fill($request->all());
-        $usuario->save();
-        $usuario->syncRoles($request->rol);
-        $this->flash('success', 'Modificado correctamente');
+
+        // Actualizar campo estado
+        if ($request->has('estado')) {
+            $usuario->estado = $request->estado;
+            $usuario->uid_tarjeta = $request->uid_tarjeta;
+            $usuario->save();
+            $this->flash('success', 'Estado modificado correctamente');
+        }
+        else {
+            $usuario->fill($request->all());
+            $usuario->save();
+            $usuario->syncRoles($request->rol);
+            $this->flash('success', 'Modificado correctamente');
+        }
         return redirect(route('usuarios.index'));
     }
 }

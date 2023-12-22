@@ -1,11 +1,21 @@
 <div class="btn-group">
     @can('usuarios.update')
         <div class="me-2">
-            <!-- Botón editar -->
-            <button type="button" id="editar-btn" class="btn btn-warning" data-bs-toggle="modal"
-                data-bs-target="#editarUsuariosModal{{ $row->id }}">
-                Editar
-            </button>
+            @if ($row->rol != 'Super Administrador')
+                <!-- Botón editar -->
+                <button type="button" id="editar-btn{{ $row->id }}" class="btn btn-warning" data-bs-toggle="modal"
+                    data-bs-target="#editarUsuariosModal{{ $row->id }}">
+                    Editar
+                </button>
+            @else
+                @role('Super Administrador')
+                <!-- Botón editar -->
+                <button type="button" id="editar-btn{{ $row->id }}" class="btn btn-warning" data-bs-toggle="modal"
+                    data-bs-target="#editarUsuariosModal{{ $row->id }}">
+                    Editar
+                </button>
+                @endrole
+            @endif
         </div>
 
         <!-- Modal para editar usuario -->
@@ -57,20 +67,28 @@
                                 <input type="password" class="form-control" name="password" id="password"
                                     placeholder="Contraseña" value="{{ $row->password }}">
                                 <br> --}}
-                                <label for="uid_tarjeta">UID Tarjeta</label>
-                                <br><br>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="uid_tarjeta" id="uid_tarjeta"
-                                        placeholder="UID Tarjeta" value="{{ $row->uid_tarjeta }}" readonly>
-                                    <button class="btn btn-primary" type="button" id="asignar-btn">Asignar</button>
+                                <div class="form-group">
+                                    <label for="uid_tarjeta">UID Tarjeta</label>
+                                    <br><br>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="uid_tarjeta" id="uid_tarjeta"
+                                            data-id="uid{{ $row->id }}" placeholder="UID Tarjeta"
+                                            value="{{ $row->uid_tarjeta }}" readonly>
+                                        <button class="btn btn-primary" type="button"
+                                            id="asignarUID{{ $row->id }}">Asignar</button>
+                                    </div>
+                                    <br>
                                 </div>
-                                <br>
-                                <label for="rol">Rol</label>
-                                <br><br>
-                                <select class="form-select" name="rol" id="rol" required>
-                                    <option value="Administrador" {{ $row->rol == 'Administrador' ? 'selected' : '' }}>Administrador</option>
-                                    <option value="Usuario" {{ $row->rol == 'Usuario' ? 'selected' : '' }}>Usuario</option>
-                                </select>
+                                @if ($row->rol != 'Super Administrador')
+                                    <label for="rol">Rol</label>
+                                    <br><br>
+                                    <select class="form-select" name="rol" id="rol" required>
+                                        <option value="Administrador" {{ $row->rol == 'Administrador' ? 'selected' : '' }}>
+                                            Administrador</option>
+                                        <option value="Usuario" {{ $row->rol == 'Usuario' ? 'selected' : '' }}>Usuario
+                                        </option>
+                                    </select>
+                                @endif
                             </div>
                     </div>
 
@@ -83,15 +101,19 @@
             </div>
         </div>
         <div class="me-2">
-            <form action="{{ route('usuarios.update', $row) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="estado" value="{{ $row->estado ? 0 : 1 }}">
-                {{-- <input type="hidden" name="uid_tarjeta" value="{{ $row->estado ? $row->uid_tarjeta : null }}"> --}}
-                <button type="submit" class="btn btn-{{ $row->estado ? 'danger' : 'success' }}">
-                    {{ $row->estado ? 'Desactivar' : 'Activar' }}
-                </button>
-            </form>
+            @if ($row->rol != 'Super Administrador')
+                <form action="{{ route('usuarios.update', $row) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="estado" value="{{ $row->estado ? 0 : 1 }}">
+                    <button type="submit" class="btn btn-{{ $row->estado ? 'danger' : 'success' }}">
+                        {{ $row->estado ? 'Desactivar' : 'Activar' }}
+                    </button>
+                    @if ($row->estado = 1)
+                        <input type="hidden" name="uid_tarjeta" value="{{ $row->uid_tarjeta = null }}">
+                    @endif
+                </form>
+            @endif
         </div>
     @endcan
 </div>
@@ -100,11 +122,8 @@
     var port;
     var tarjetaUID = ''; // Variable para almacenar el UID de la tarjeta
 
-    document.getElementById('editar-btn').addEventListener('click', async () => {
-        // Obtener el puerto serie
-        const ports = await navigator.serial.getPorts();
-
-        if (port) {
+    document.getElementById('editar-btn{{ $row->id }}').addEventListener('click', async () => {
+        if (port != null) {
             // Si ya hay un puerto serie abierto, mostrar un mensaje
             console.log('Ya hay un puerto serie abierto');
         } else {
@@ -124,8 +143,8 @@
         }
     });
 
-    document.getElementById('asignar-btn').addEventListener('click', async () => {
-        document.getElementById('uid_tarjeta').value = ''; // Limpiar el campo
+    document.getElementById('asignarUID{{ $row->id }}').addEventListener('click', async () => {
+        document.querySelector('[data-id="uid{{ $row->id }}"]').value = ''; // Limpiar el campo
         tarjetaUID = ''; // Limpiar la variable
         // Escribir datos
         const writer = port.writable.getWriter();
@@ -140,33 +159,25 @@
             const decoder = new TextDecoder();
 
             try {
-                // let continuarLeyendo = true;
-
                 while (true) {
                     const {
                         value,
                         done
                     } = await reader.read();
                     if (done) {
-                        // continuarLeyendo = false; // Cambiar el valor para salir del bucle
                         reader.releaseLock();
                         break;
                     }
                     tarjetaUID += decoder.decode(value); // Concatenar los valores leídos
                     console.log('UID Tarjeta: ' + tarjetaUID);
-                    document.getElementById('uid_tarjeta').value = tarjetaUID;
+                    document.querySelector('[data-id="uid{{ $row->id }}"]').value = tarjetaUID;
                 }
             } catch (error) {
                 console.log(error);
             } finally {
-                readable.cancel();
+                writer.releaseLock();
+                reader.releaseLock();
             }
         }
-    });
-
-    document.getElementById('cancelar-btn').addEventListener('click', async () => {
-        document.getElementById('uid_tarjeta').value = ''; // Limpiar el campo
-        await port.close(); // Cerrar el puerto serie
-        console.log('Puerto cerrado correctamente');
     });
 </script>

@@ -2,11 +2,11 @@
 
 namespace App\Livewire;
 
-use App\Models\Estacionamiento;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Registro;
 use App\Models\User;
+use App\Models\Estacionamiento;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 
 class RegistroDatatable extends DataTableComponent
@@ -85,11 +85,15 @@ class RegistroDatatable extends DataTableComponent
                 ->collapseOnMobile()
                 ->setSortingPillDirections('Asc', 'Desc')
                 ->format(function ($value) {
-                    return date('d/m/Y H:i', strtotime($value));
+                    if ($value) {
+                        return date('d/m/Y H:i', strtotime($value));
+                    } else {
+                        return '';
+                    }
                 }),
             Column::make('Acciones')
                 ->label(
-                    fn ($row) => view(('Registro.actions'), compact('row'))->with([ 'usuarios' => $usuarios, 'estacionamientos' => $estacionamientos])
+                    fn ($row) => view(('Registros.actions'), compact('row'))->with([ 'usuarios' => $usuarios, 'estacionamientos' => $estacionamientos])
                 )
         ];
     }

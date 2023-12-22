@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('dia_usuarios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('dia_habilitado_id')->references('id')->on('dias')->cascadeOnDelete();
             $table->foreignId('usuario_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->string('dia');
             $table->string('facultad');
             $table->timestamps();
         });

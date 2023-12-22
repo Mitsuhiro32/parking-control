@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dia;
 use App\Models\DiaUsuario;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,9 +22,8 @@ class DiaUsuarioController extends Controller
     public function index()
     {
         $diaUsuarios = DiaUsuario::all();
-        $dias = Dia::all();
         $usuarios = User::all();
-        return view('diaUsuarios.index', compact('diaUsuarios', 'dias', 'usuarios'));
+        return view('diaUsuarios.index', compact('diaUsuarios', 'usuarios'));
     }
 
     public function store(Request $request)

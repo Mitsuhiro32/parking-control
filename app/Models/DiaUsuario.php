@@ -11,8 +11,8 @@ class DiaUsuario extends Model
     protected $primaryKey = 'id';
     public $table = 'dia_usuarios';
     protected $fillable = [
-        'dia_habilitado_id',
         'usuario_id',
+        'dia',
         'facultad',
     ];
     public $timestamps = false;
@@ -20,10 +20,5 @@ class DiaUsuario extends Model
     public function usuario()
     {
         return $this->belongsTo(User::class, 'usuario_id');
-    }
-
-    public function dia()
-    {
-        return $this->belongsTo(Dia::class, 'dia_habilitado_id');
     }
 }

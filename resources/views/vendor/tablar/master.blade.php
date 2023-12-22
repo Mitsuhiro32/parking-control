@@ -19,43 +19,12 @@
         @vite('resources/js/app.js')
     @endif
 
-    {{-- <style>
-        #loadingScreen {
-            position: fixed;
-            z-index: 999;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .loading-logo img {
-            width: 100px;
-            height: 100px;
-        }
-    </style> --}}
-
     {{-- Custom Stylesheets (post Tablar) --}}
     @yield('tablar_css')
 </head>
 {{-- Tablar Body --}}
 @yield('body')
 
-{{-- <div id="loadingScreen" style="display: none;">
-    <div class="loading-logo">
-        <img src="/public/assets/logo.png" alt="Logo">
-    </div>
-</div> --}}
-
 {{-- Tablar JS --}}
 @yield('tablar_js')
-
-{{-- <script>
-    window.addEventListener('load', function() {
-        document.getElementById('loadingScreen').style.display = 'none';
-    });
-</script> --}}
-
 </html>

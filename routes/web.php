@@ -3,7 +3,6 @@
 use App\Http\Controllers\DiaUsuarioController;
 use App\Http\Controllers\EstacionamientoController;
 use App\Http\Controllers\RegistroController;
-use App\Http\Controllers\SerialController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,7 +22,7 @@ Auth::routes();
 
 Route::get('/', function () {
     return view('home');
-})->middleware(['can:home','auth','verified'])->name('home');
+})->middleware(['can:home','auth','verified']);
 
 Route::resource('estacionamientos', EstacionamientoController::class)->only('index','store','update')->middleware(['auth','verified']);
 Route::resource('diaUsuarios', DiaUsuarioController::class)->only('index','store','update','destroy')->middleware(['auth','verified']);

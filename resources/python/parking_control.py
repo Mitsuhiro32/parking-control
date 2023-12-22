@@ -2,106 +2,180 @@ import serial
 import time
 import datetime
 import psycopg2
+import datetime
 
 # Configurar la conexión con la base de datos
 connection = psycopg2.connect(user='postgres', password='postgres32', host='localhost', dbname='parking')
 connection.autocommit = True
 
-# Función para validar si una persona está habilitada para el día y su estado está activo
-def validar_datos(uid, estacionamiento):
-    # Aquí puedes implementar la lógica para validar la persona en la base de datos
-    # Retorna True si la persona está habilitada y su estado es activo, False en caso contrario
-    pass
+# Crear un cursor para ejecutar consultas
+cursor = connection.cursor()
 
-# Función para guardar los datos coincididos en una tabla
-def guardar_datos(datos):
-    # Aquí puedes implementar la lógica para guardar los datos en la base de datos
-    pass
+# Variable global para almacenar el usuario
+usuarioID = None
+estacionamientoID = None
+registroID = None
 
-# Función para aumentar la ocupación del estacionamiento
-def aumentar_ocupado():
-    # Aquí puedes implementar la lógica para aumentar la ocupación del estacionamiento
-    pass
+# Validar el usuario y si ese usuario está activo
+def validar_usuario(uid):
+    global usuarioID
+    consultaUsuario = f"SELECT id FROM users WHERE uid_tarjeta = '{uid}' AND estado = 'True'"
+    cursor.execute(consultaUsuario)
+    result = cursor.fetchone()
+    usuarioID = result[0] if result is not None else None # Retorna el id del usuario si existe, None en caso contrario
 
-def disminuir_ocupado():
-    # Aquí puedes implementar la lógica para disminuir la ocupación del estacionamiento
-    pass
+    if usuarioID is None:
+        return False
+    else:
+        return True
 
-# Función principal que escucha el puerto serial y realiza las validaciones
-def escuchar_puerto_serial():
+# Validar el estacionamiento
+def validar_estacionamiento(est):
+    global estacionamientoID
+    consultaEstacionamiento = f"SELECT id FROM estacionamientos WHERE nombre = '{est}'"
+    cursor.execute(consultaEstacionamiento)
+    result = cursor.fetchone()
+    estacionamientoID = result[0] if result is not None else None # Retorna el id del estacionamiento si existe, None en caso contrario
+
+    if estacionamientoID is None:
+        return False
+    else:
+        return True
+
+# Función para validar si un usuario ya ha ingresado en el estacionamiento en el día actual
+def validar_registro():
+    global usuarioID
+    global estacionamientoID
+    global registroID
+    consulta = f"SELECT id FROM registros WHERE usuario_id = '{usuarioID}' AND estacionamiento_id = '{estacionamientoID}' AND fecha_hora_entrada IS NOT NULL AND fecha_hora_salida IS NULL"
+    cursor.execute(consulta)
+    result = cursor.fetchone()
+    registroID = result[0] if result is not None else None # Retorna el id del registro si existe, None en caso contrario
+
+    # Retorna True si el usuario ya ha ingresado en el estacionamiento en el día actual, False en caso contrario
+    if registroID is None:
+        return False
+    else:
+        return True
+
+def estacionamiento_lleno():
+    global estacionamientoID
+    consulta = f"SELECT id FROM estacionamientos WHERE id = '{estacionamientoID}' AND ocupado < capacidad"
+    cursor.execute(consulta)
+    result = cursor.fetchone()
+    estacionamientoID = result[0] if result is not None else None # Retorna el id del estacionamiento si existe, None en caso contrario
+
+    if estacionamientoID is None: # Si el estacionamiento está lleno
+        return False
+    else: # Si el estacionamiento no está lleno
+        return True
+
+def usuario_habilitado():
+    dias_semana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
+
+    # Obtener el número del día de la semana (0 = Lunes, 1 = Martes, etc.)
+    numero_dia = datetime.datetime.today().weekday()
+
+    # Obtener el nombre del día de la semana
+    nombre_dia = dias_semana[numero_dia]
+
+    global usuarioID
+    consulta = f"SELECT id FROM dia_usuarios WHERE usuario_id = '{usuarioID}' AND dia = '{nombre_dia}'"
+    cursor.execute(consulta)
+    result = cursor.fetchone()
+    usuarioID = result[0] if result is not None else None # Retorna el id del usuario si existe, None en caso contrario
+
+    if usuarioID is None: # Si el usuario no está habilitado
+        return False
+    else: # Si el usuario está habilitado
+        return True
+
+# Función para guardar los registros de entrada
+def registrar_entrada():
+    global usuarioID
+    global estacionamientoID
+    # Obtener la fecha y hora actual
+    fecha_hora_actual = datetime.datetime.now()
+
+    # Formatear la fecha y hora actual como un timestamp
+    timestamp = fecha_hora_actual.strftime("%Y-%m-%d %H:%M:%S")
+
+    consulta = f"INSERT INTO registros (usuario_id, estacionamiento_id, fecha_hora_entrada) VALUES ('{usuarioID}','{estacionamientoID}','{timestamp}')"
+    cursor.execute(consulta)
+
+# Función para actualizar el registro de entrada
+def actualizar_registro_salida():
+    global registroID
+    # Obtener la fecha y hora actual
+    fecha_hora_actual = datetime.datetime.now()
+
+    # Formatear la fecha y hora actual como un timestamp
+    timestamp = fecha_hora_actual.strftime("%Y-%m-%d %H:%M:%S")
+
+    consulta = f"UPDATE registros SET fecha_hora_salida = '{timestamp}' WHERE id = '{registroID}'"
+    cursor.execute(consulta)
+
+# Función para sumar la ocupación del estacionamiento
+def sumar_ocupado():
+    global estacionamientoID
+    consulta = f"UPDATE estacionamientos SET ocupado = ocupado+1 WHERE id = '{estacionamientoID}'"
+    cursor.execute(consulta)
+
+# Función para restar la ocupación del estacionamiento
+def restar_ocupado():
+    global estacionamientoID
+    consulta = f"UPDATE estacionamientos SET ocupado = ocupado-1 WHERE id = '{estacionamientoID}' AND ocupado > 0"
+    cursor.execute(consulta)
+
+# * Función principal que escucha el puerto serial y realiza las validaciones
+def comunicar_puerto_serial():
     try:
         # Configurar el puerto serial
-        ser = serial.Serial('COM5', 9600)  # Reemplaza 'COM1' con el puerto serial correcto
+        ser = serial.Serial('COM5', 9600)
 
-        while True:
-            if ser.isOpen():
+        time.sleep(2)  # Espera 2 segundos para que el puerto se abra
+
+        # Validar si el puerto serial está abierto
+        if ser.isOpen():
+            print("El puerto serial está abierto")
+
+            while True:
                 # Leer el dato del puerto serial
                 dato = ser.readline().decode().strip()
+                print(dato)
                 # Dividir los datos en dos partes usando la coma como separador
-                datoUID, datoEstacionamiento = dato.split(',')
-                # Validar si el dato pertenece a un usuario y está habilitada para el día
-                if validar_datos(datoUID, datoEstacionamiento):
-                    ser.write(b'd')  # Envía datos al puerto serie
-                else:
-                    ser.write(b'p') # Envía datos al puerto serie
-            else:
-                print("El puerto serial no está abierto")
-    except serial.SerialException:
+                datoUID,datoEstacionamiento = dato.split(',')
+
+                print(datoUID)
+                print(datoEstacionamiento)
+
+                # Validar si el dato pertenece a un usuario
+                if validar_estacionamiento(datoEstacionamiento):
+                    if validar_usuario(datoUID):
+                        if validar_registro(): # Si el usuario ya ha ingresado en el estacionamiento en el día actual
+                            actualizar_registro_salida()
+                            restar_ocupado()
+                            ser.write(b'Hasta Pronto....') # Envía datos al puerto serie
+                        else: # Si el usuario no ha ingresado en el estacionamiento en el día actual
+                            if estacionamiento_lleno(): # Validar si el estacionamiento está lleno
+                                if usuario_habilitado(): # Validar si el usuario está habilitado
+                                    registrar_entrada()
+                                    sumar_ocupado()
+                                    ser.write(b'Acceso Permitido') # Envía datos al puerto serie
+                                else: # Si el usuario no está habilitado para ese día
+                                    ser.write(b'Hoy no es tu dia') # Envía datos al puerto serie
+                            else: # Si el estacionamiento está lleno
+                                ser.write(b'Parking Lleno :(') # Envía datos al puerto serie
+                    else: # Si el usuario no está activo
+                        ser.write(b'Usuario invalido') # Envía datos al puerto serie
+                else: # Si el estacionamiento no existe
+                    ser.write(b'Est. Inexistente') # Envía datos al puerto serie
+        else: # Si el puerto serial no está abierto
+            print("El puerto serial no está abierto")
+    except serial.SerialException: # Si el puerto serial no está disponible
         print("El puerto serial no está disponible")
+    finally:
+        ser.close()
 
 # Ejecutar la función principal
-escuchar_puerto_serial()
-
-
-# Función para comparar los datos con la base de datos
-def comparar_datos(dato1, dato2):
-    # Establecer conexión con la base de datos
-    cursor = connection.cursor()
-
-    # Ejecutar consulta para buscar coincidencias en la base de datos
-    consultaUID = f"SELECT * FROM users WHERE uid_tarjeta = '{dato1}'"
-    cursor.execute(consultaUID)
-    resultado = cursor.fetchone()
-
-    consultaEstacionamiento = f"SELECT * FROM estacionamientos WHERE nombre = '{dato2}'"
-    cursor.execute(consultaEstacionamiento)
-    resultado2 = cursor.fetchone()
-
-    # Cerrar conexión con la base de datos
-    cursor.close()
-
-    # Devolver True si se encontró una coincidencia, False en caso contrario
-    if resultado:
-        return True
-    else:
-        return False
-
-def usuarioHabilitado(usuario):
-    return True
-
-try:
-    # Configurar el puerto serial
-    puerto_serie = serial.Serial('COM5', 9600)  # Ajusta el nombre del puerto y la velocidad
-
-    time.sleep(2)  # Esperar 2 segundos para permitir que el puerto se abra
-
-    while True:
-        # Esperar datos desde el puerto serial
-        datos = puerto_serie.read(8).decode('utf-8')  # Leer 8 bytes desde el puerto serial y decodificarlos como UTF-8
-
-        # Dividir los datos en dos partes usando la coma como separador
-        datoUID, datoEstacionamiento = datos.split(',')
-
-        # Comparar los datos con la base de datos
-        if comparar_datos(datoUID, datoEstacionamiento):
-            # Guardar un registro con la fecha y hora actual en la base de datos
-
-            fecha_hora_actual = datetime.datetime.now()
-            # TODO: Implementa aquí tu lógica de guardado en la base de datos
-            print(f"Registro guardado: {fecha_hora_actual}")
-
-            # Enviar una respuesta de vuelta al puerto serial
-            puerto_serie.write(b'p') # Envía datos al puerto serie
-
-except serial.SerialException:
-    print('Error al conectar con el puerto serial')
+comunicar_puerto_serial()

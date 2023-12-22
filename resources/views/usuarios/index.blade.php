@@ -83,7 +83,7 @@
 
                         <div class="modal-footer d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Guardar</button>
-                            <button type="button" id="cancelar-btn" class="btn btn-danger"
+                            <button type="button" class="btn btn-danger"
                                 data-bs-dismiss="modal">Cancelar</button>
                         </div>
                         </form>
@@ -114,23 +114,28 @@
         var tarjetaUID = ''; // Variable para almacenar el UID de la tarjeta
 
         document.getElementById('nuevo-btn').addEventListener('click', async () => {
-            if (port) {
+            if (port != null) {
                 // Si ya hay un puerto serie abierto, mostrar un mensaje
                 console.log('Ya hay un puerto serie abierto');
             } else {
-                // Si no hay un puerto serie abierto, solicitar uno
-                port = await navigator.serial.requestPort();
+                try {
+                    // Si no hay un puerto serie abierto, solicitar uno
+                    port = await navigator.serial.requestPort();
 
-                await port.open({
-                    baudRate: 9600,
-                    dataBits: 8,
-                    stopBits: 1,
-                    parity: 'none',
-                    flowControl: 'none'
-                });
+                    await port.open({
+                        baudRate: 9600,
+                        dataBits: 8,
+                        stopBits: 1,
+                        parity: 'none',
+                        flowControl: 'none'
+                    });
 
-                // Mostrar un mensaje si se pudo conectar correctamente al puerto serie
-                console.log('Puerto abierto correctamente');
+                    // Mostrar un mensaje si se pudo conectar correctamente al puerto serie
+                    console.log('Puerto abierto correctamente');
+                } catch (error) {
+                    // Mostrar una alerta con el mensaje de error
+                    alert('El puerto serie está ocupado, no se pudo conectar.');
+                }
             }
         });
 
@@ -150,15 +155,12 @@
                 const decoder = new TextDecoder();
 
                 try {
-                    // let continuarLeyendo = true;
-
                     while (true) {
                         const {
                             value,
                             done
                         } = await reader.read();
                         if (done) {
-                            // continuarLeyendo = false; // Cambiar el valor para salir del bucle
                             reader.releaseLock();
                             break;
                         }
@@ -169,15 +171,19 @@
                 } catch (error) {
                     console.log(error);
                 } finally {
-                    readable.cancel();
+                    writer.releaseLock();
+                    reader.releaseLock();
                 }
             }
         });
 
-        document.getElementById('cancelar-btn').addEventListener('click', async () => {
-            document.getElementById('uid_tarjeta').value = ''; // Limpiar el campo
-            await port.close(); // Cerrar el puerto serie
-            console.log('Puerto cerrado correctamente');
+        // Cerrar el puerto serie al salir de la página o al recargar
+        window.addEventListener('beforeunload', async (event) => {
+            if (port) {
+                // Si el puerto está abierto, revocar el permiso
+                await port.forget();
+                port = null;
+            }
         });
     </script>
 @endsection

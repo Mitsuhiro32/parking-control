@@ -37,15 +37,24 @@
                                         @endforeach
                                     </select>
                                     <br>
-                                    <label for="dia_habilitado_id">Día</label>
+                                    <label for="dia">Día</label>
                                     <br><br>
-                                    <select name="dia_habilitado_id" id="dia_habilitado_id" class="form-control" required>
+                                    <select name="dia" id="dia" class="form-control" required>
                                         <option value="">Seleccione un día</option>
-                                        @foreach ($dias as $d)
-                                            <option value="{{ $d->id }}"
-                                                {{ $row->dia_habilitado_id == $d->id ? 'selected' : '' }}>
-                                                {{ $d->nombre }}</option>
-                                        @endforeach
+                                        <option value="Lunes" {{ $row->dia == 'Lunes' ? 'selected' : '' }}>
+                                            Lunes</option>
+                                        <option value="Martes" {{ $row->dia == 'Martes' ? 'selected' : '' }}>
+                                            Martes</option>
+                                        <option value="Miercoles" {{ $row->dia == 'Miercoles' ? 'selected' : '' }}>
+                                            Miércoles</option>
+                                        <option value="Jueves" {{ $row->dia == 'Jueves' ? 'selected' : '' }}>
+                                            Jueves</option>
+                                        <option value="Viernes" {{ $row->dia == 'Viernes' ? 'selected' : '' }}>
+                                            Viernes</option>
+                                        <option value="Sabado" {{ $row->dia == 'Sabado' ? 'selected' : '' }}>
+                                            Sábado</option>
+                                        <option value="Domingo" {{ $row->dia == 'Domingo' ? 'selected' : '' }}>
+                                            Domingo</option>
                                     </select>
                                     <br>
                                     <label for="facultad">Facultad</label>
@@ -78,7 +87,7 @@
             </div>
         </div>
     @endcan
-    @can('diaUsuarios.eliminar')
+    @can('diaUsuarios.delete')
         <div class="me-2">
             <form action="{{ route('diaUsuarios.destroy', $row->id) }}" method="POST">
                 @csrf

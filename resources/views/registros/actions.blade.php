@@ -29,17 +29,17 @@
                     <input type="text" name="estacionamiento_id" id="estacionamiento_id" class="form-control"
                         value="{{ $row->estacionamiento->nombre }}" disabled>
                     <br>
-                    <label for="fechaHora_entrada">Fecha y Hora de Entrada</label>
+                    <label for="fecha_hora_entrada">Fecha y Hora de Entrada</label>
                     <br><br>
                     <input type="text" name="fecha" id="fecha" class="form-control"
-                        value="{{ $row->fechaHora_entrada }}" disabled>
+                        value="{{ $row->fecha_hora_entrada }}" disabled>
                     <br>
-                    <label for="fechaHora_salida">Fecha y Hora de Salida</label>
+                    <label for="fecha_hora_salida">Fecha y Hora de Salida</label>
                     <br><br>
                     <input type="text" name="fecha" id="fecha" class="form-control"
-                        value="{{ $row->fechaHora_salida }}" disabled>
+                        value="{{ $row->fecha_hora_salida }}" disabled>
                     <br>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>

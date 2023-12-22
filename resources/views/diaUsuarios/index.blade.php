@@ -36,13 +36,17 @@
                                         @endforeach
                                     </select>
                                     <br>
-                                    <label for="dia_habilitado_id">Día</label>
+                                    <label for="dia">Día</label>
                                     <br><br>
-                                    <select name="dia_habilitado_id" id="dia_habilitado_id" class="form-control" required>
+                                    <select name="dia" id="dia" class="form-control" required>
                                         <option value="">Seleccione un día</option>
-                                        @foreach ($dias as $d)
-                                            <option value="{{ $d->id }}">{{ $d->nombre }}</option>
-                                        @endforeach
+                                        <option value="Lunes">Lunes</option>
+                                        <option value="Martes">Martes</option>
+                                        <option value="Miercoles">Miércoles</option>
+                                        <option value="Jueves">Jueves</option>
+                                        <option value="Viernes">Viernes</option>
+                                        <option value="Sabado">Sábado</option>
+                                        <option value="Domingo">Domingo</option>
                                     </select>
                                     <br>
                                     <label for="facultad">Facultad</label>
