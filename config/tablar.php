@@ -92,7 +92,7 @@ return [
     */
 
     'use_route_url' => true,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -155,30 +155,11 @@ return [
             'can' => ['registros.index', 'registros.view']
         ],
         [
-            'text' => 'Auditoria',
-            'url' => '#',
+            'text' => 'Auditorias',
             'icon' => 'ti ti-eye-search',
+            'route' => 'auditorias.index',
             'can' => 'auditoria',
-            'active' => ['auditoria'],
-            'submenu' => [
-                [
-                    'text' => 'Usuarios',
-                    'url' => 'auditoria/usuarios',
-                ],
-                [
-                    'text' => 'Estacionamientos',
-                    'url' => 'auditoria/estacionamientos',
-                ],
-                [
-                    'text' => 'Habilitar Usuarios',
-                    'url' => 'auditoria/diaUsuarios',
-                ],
-                [
-                    'text' => 'Registros',
-                    'url' => 'auditoria/registros',
-                ],
-            ],
-        ],
+        ]
     ],
 
     /*

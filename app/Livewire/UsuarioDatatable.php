@@ -15,15 +15,6 @@ class UsuarioDatatable extends DataTableComponent
     protected $model = User::class;
     public ?int $searchFilterDebounce = 500;
 
-    /* public array $bulkActions = [
-        'exportSelected' => 'Export',
-    ];
-
-    public function exportSelected()
-    {
-        dd($this->selectedKeys());
-    } */
-
     public function filters(): array
     {
         return [

@@ -89,11 +89,34 @@
     @endcan
     @can('diaUsuarios.delete')
         <div class="me-2">
-            <form action="{{ route('diaUsuarios.destroy', $row->id) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger">Eliminar</button>
-            </form>
+            <div class="me-2">
+                <form id="deleteForm{{ $row->id }}" action="{{ route('diaUsuarios.destroy', $row->id) }}"
+                    method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" class="btn btn-danger"
+                        onclick="confirmDelete('{{ $row->id }}')">Eliminar</button>
+                </form>
+            </div>
+
+            <script>
+                function confirmDelete(id) {
+                    Swal.fire({
+                        title: '¿Estás seguro de eliminar este registro?',
+                        text: 'Esta acción no se puede deshacer',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Sí, eliminar',
+                        cancelButtonText: 'Cancelar',
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById('deleteForm' + id).submit();
+                        }
+                    });
+                }
+            </script>
         </div>
     @endcan
 </div>

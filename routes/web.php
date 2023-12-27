@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\DiaUsuarioController;
 use App\Http\Controllers\EstacionamientoController;
 use App\Http\Controllers\RegistroController;
@@ -28,3 +29,6 @@ Route::resource('estacionamientos', EstacionamientoController::class)->only('ind
 Route::resource('diaUsuarios', DiaUsuarioController::class)->only('index','store','update','destroy')->middleware(['auth','verified']);
 Route::resource('usuarios', UsuarioController::class)->only('index','store','update')->middleware(['auth','verified']);
 Route::resource('registros', RegistroController::class)->only('index')->middleware(['auth','verified']);
+
+// Auditoria
+Route::resource('auditorias', AuditoriaController::class)->only('index')->middleware(['auth','verified']);

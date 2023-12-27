@@ -14,32 +14,9 @@ class DiaUsuarioDatatable extends DataTableComponent
     protected $model = DiaUsuario::class;
     public ?int $searchFilterDebounce = 500;
 
-    /* public array $bulkActions = [
-        'exportSelected' => 'Export',
-    ];
-
-    public function exportSelected()
-    {
-        dd($this->selectedKeys());
-    } */
-
     public function filters(): array
     {
         return [
-            /* SelectFilter::make('Estado')
-                ->options([
-                    '' => 'Todos',
-                    '1' => 'Activo',
-                    '0' => 'Inactivo',
-                ])
-                ->filter(function (Builder $builder, string $value) {
-                    if ($value === '1') {
-                        $builder->where('estado', true);
-                    } elseif ($value === '0') {
-                        $builder->where('estado', false);
-                    }
-                }), */
-
             SelectFilter::make('Dia habilitado')
                 ->options(
                     DiaUsuario::all()->pluck('dia', 'dia')->toArray(),

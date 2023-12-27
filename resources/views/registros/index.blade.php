@@ -9,5 +9,6 @@
 
         <!-- Datatable de registros -->
         @livewire('registro-datatable')
+        <br>
     </div>
 @endsection

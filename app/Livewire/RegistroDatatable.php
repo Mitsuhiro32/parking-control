@@ -15,12 +15,16 @@ class RegistroDatatable extends DataTableComponent
     public ?int $searchFilterDebounce = 500;
 
     public array $bulkActions = [
-        'exportSelected' => 'Export',
+        'exportSelected' => 'Exportar',
     ];
 
     public function exportSelected()
     {
-        dd($this->selectedKeys());
+        foreach ($this->getSelected() as $item) {
+            $registro = Registro::find($item);
+            $registro->exportar();
+        }
+        $this->clearSelected();
     }
 
     public function filters(): array
@@ -80,7 +84,7 @@ class RegistroDatatable extends DataTableComponent
                 ->format(function ($value) {
                     return date('d/m/Y H:i', strtotime($value));
                 }),
-            Column::make("Fecha y hora de salida", "fecha_hora_salida")
+            Column::make("Fecha y hora salida", "fecha_hora_salida")
                 ->sortable()
                 ->collapseOnMobile()
                 ->setSortingPillDirections('Asc', 'Desc')

@@ -75,14 +75,16 @@
                                     <select name="rol" id="rol" class="form-control" required>
                                         <option value="">Seleccione un rol</option>
                                         @foreach ($roles as $rol)
-                                            <option value="{{ $rol->name }}">{{ $rol->name }}</option>
+                                            @if ($rol->name !== 'Super Administrador')
+                                                <option value="{{ $rol->name }}">{{ $rol->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
                         </div>
 
                         <div class="modal-footer d-flex justify-content-between">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary" onclick="this.disabled=true; this.form.submit();">Guardar</button>
                             <button type="button" class="btn btn-danger"
                                 data-bs-dismiss="modal">Cancelar</button>
                         </div>
@@ -96,6 +98,7 @@
 
         <!-- Datatable de usuarios -->
         @livewire('usuario-datatable')
+        <br>
     </div>
 
     <script>
@@ -134,7 +137,11 @@
                     console.log('Puerto abierto correctamente');
                 } catch (error) {
                     // Mostrar una alerta con el mensaje de error
-                    alert('El puerto serie está ocupado, no se pudo conectar.');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'El puerto serial no está disponible o está ocupado.',
+                        text: 'Por favor, verifica tu puerto serial.',
+                    });
                 }
             }
         });

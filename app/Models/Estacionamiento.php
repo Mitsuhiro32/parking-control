@@ -20,4 +20,9 @@ class Estacionamiento extends Model
     {
         return $this->hasMany(Registro::class, 'estacionamiento_id');
     }
+
+    public function auditoria_estacionamientos()
+    {
+        return $this->hasMany(AuditoriaEstacionamiento::class, 'estacionamiento_id');
+    }
 }

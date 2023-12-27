@@ -6,9 +6,13 @@ use App\Models\Registro;
 
 class RegistroController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:registros.index')->only('index');
+    }
+
     public function index()
     {
-        $registros = Registro::all();
-        return view('registros.index', compact('registros'));
+        return view('registros.index');
     }
 }

@@ -3536,16 +3536,16 @@
         },
         {
             "name": "rappasoft/laravel-livewire-tables",
-            "version": "v3.1.5",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rappasoft/laravel-livewire-tables.git",
-                "reference": "2bfe6df78d0e9d286b31176131a95b2041ba36cb"
+                "reference": "e2b5c4f2033f7886054122139054a2e52712a952"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rappasoft/laravel-livewire-tables/zipball/2bfe6df78d0e9d286b31176131a95b2041ba36cb",
-                "reference": "2bfe6df78d0e9d286b31176131a95b2041ba36cb",
+                "url": "https://api.github.com/repos/rappasoft/laravel-livewire-tables/zipball/e2b5c4f2033f7886054122139054a2e52712a952",
+                "reference": "e2b5c4f2033f7886054122139054a2e52712a952",
                 "shasum": ""
             },
             "require": {
@@ -3600,7 +3600,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rappasoft/laravel-livewire-tables/issues",
-                "source": "https://github.com/rappasoft/laravel-livewire-tables/tree/v3.1.5"
+                "source": "https://github.com/rappasoft/laravel-livewire-tables/tree/v3.1.6"
             },
             "funding": [
                 {
@@ -3608,20 +3608,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-12-09T23:55:56+00:00"
+            "time": "2023-12-26T16:05:40+00:00"
         },
         {
             "name": "spatie/laravel-permission",
-            "version": "6.2.0",
+            "version": "6.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "299dd2c9bce700ea641021c1aea0dfece25e541d"
+                "reference": "4d119986c862ac0168b77338c85d8236bb559a88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/299dd2c9bce700ea641021c1aea0dfece25e541d",
-                "reference": "299dd2c9bce700ea641021c1aea0dfece25e541d",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/4d119986c862ac0168b77338c85d8236bb559a88",
+                "reference": "4d119986c862ac0168b77338c85d8236bb559a88",
                 "shasum": ""
             },
             "require": {
@@ -3682,7 +3682,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-permission/issues",
-                "source": "https://github.com/spatie/laravel-permission/tree/6.2.0"
+                "source": "https://github.com/spatie/laravel-permission/tree/6.3.0"
             },
             "funding": [
                 {
@@ -3690,7 +3690,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-12-09T01:40:07+00:00"
+            "time": "2023-12-24T06:58:02+00:00"
         },
         {
             "name": "symfony/console",
@@ -6846,16 +6846,16 @@
         },
         {
             "name": "laravel-lang/actions",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Lang/actions.git",
-                "reference": "74d1b37893d0d4af5093351149ae8b14c8fe432a"
+                "reference": "1d10553addc50b4e7a7e77b8cbdaef48434ab92a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Lang/actions/zipball/74d1b37893d0d4af5093351149ae8b14c8fe432a",
-                "reference": "74d1b37893d0d4af5093351149ae8b14c8fe432a",
+                "url": "https://api.github.com/repos/Laravel-Lang/actions/zipball/1d10553addc50b4e7a7e77b8cbdaef48434ab92a",
+                "reference": "1d10553addc50b4e7a7e77b8cbdaef48434ab92a",
                 "shasum": ""
             },
             "require": {
@@ -6907,9 +6907,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Laravel-Lang/actions/issues",
-                "source": "https://github.com/Laravel-Lang/actions/tree/1.2.0"
+                "source": "https://github.com/Laravel-Lang/actions/tree/1.2.1"
             },
-            "time": "2023-12-22T06:48:43+00:00"
+            "time": "2023-12-23T16:59:45+00:00"
         },
         {
             "name": "laravel-lang/attributes",

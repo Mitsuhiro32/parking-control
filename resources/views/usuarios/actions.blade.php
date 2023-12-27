@@ -9,18 +9,19 @@
                 </button>
             @else
                 @role('Super Administrador')
-                <!-- Botón editar -->
-                <button type="button" id="editar-btn{{ $row->id }}" class="btn btn-warning" data-bs-toggle="modal"
-                    data-bs-target="#editarUsuariosModal{{ $row->id }}">
-                    Editar
-                </button>
+                    <!-- Botón editar -->
+                    <button type="button" id="editar-btn{{ $row->id }}" class="btn btn-warning" data-bs-toggle="modal"
+                        data-bs-target="#editarUsuariosModal{{ $row->id }}">
+                        Editar
+                    </button>
                 @endrole
             @endif
         </div>
 
         <!-- Modal para editar usuario -->
-        <div class="modal fade" id="editarUsuariosModal{{ $row->id }}" data-bs-backdrop="static" data-bs-keyboard="false"
-            tabindex="-1" aria-labelledby="editarUsuariosModalLabel{{ $row->id }}" aria-hidden="true">
+        <div class="modal fade" id="editarUsuariosModal{{ $row->id }}" data-bs-backdrop="static"
+            data-bs-keyboard="false" tabindex="-1" aria-labelledby="editarUsuariosModalLabel{{ $row->id }}"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -127,19 +128,28 @@
             // Si ya hay un puerto serie abierto, mostrar un mensaje
             console.log('Ya hay un puerto serie abierto');
         } else {
-            // Si no hay un puerto serie abierto, solicitar uno
-            port = await navigator.serial.requestPort();
+            try {
+                // Si no hay un puerto serie abierto, solicitar uno
+                port = await navigator.serial.requestPort();
 
-            await port.open({
-                baudRate: 9600,
-                dataBits: 8,
-                stopBits: 1,
-                parity: 'none',
-                flowControl: 'none'
-            });
+                await port.open({
+                    baudRate: 9600,
+                    dataBits: 8,
+                    stopBits: 1,
+                    parity: 'none',
+                    flowControl: 'none'
+                });
 
-            // Mostrar un mensaje si se pudo conectar correctamente al puerto serie
-            console.log('Puerto abierto correctamente');
+                // Mostrar un mensaje si se pudo conectar correctamente al puerto serie
+                console.log('Puerto abierto correctamente');
+            } catch (error) {
+                // Mostrar una alerta con el mensaje de error
+                Swal.fire({
+                    icon: 'error',
+                    title: 'El puerto serie no está disponible o está ocupado.',
+                    text: 'Por favor, verifica la disponibilidad del puerto serie.',
+                });
+            }
         }
     });
 

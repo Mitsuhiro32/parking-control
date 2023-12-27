@@ -32,7 +32,7 @@ def validar_usuario(uid):
 # Validar el estacionamiento
 def validar_estacionamiento(est):
     global estacionamientoID
-    consultaEstacionamiento = f"SELECT id FROM estacionamientos WHERE nombre = '{est}'"
+    consultaEstacionamiento = f"SELECT id FROM estacionamientos WHERE nombre = '{est}' AND estado = 'True'"
     cursor.execute(consultaEstacionamiento)
     result = cursor.fetchone()
     estacionamientoID = result[0] if result is not None else None # Retorna el id del estacionamiento si existe, None en caso contrario
@@ -142,7 +142,6 @@ def comunicar_puerto_serial():
             while True:
                 # Leer el dato del puerto serial
                 dato = ser.readline().decode().strip()
-                print(dato)
                 # Dividir los datos en dos partes usando la coma como separador
                 datoUID,datoEstacionamiento = dato.split(',')
 
@@ -169,13 +168,13 @@ def comunicar_puerto_serial():
                     else: # Si el usuario no está activo
                         ser.write(b'Usuario invalido') # Envía datos al puerto serie
                 else: # Si el estacionamiento no existe
-                    ser.write(b'Est. Inexistente') # Envía datos al puerto serie
+                    ser.write(b'Parking invalido') # Envía datos al puerto serie
         else: # Si el puerto serial no está abierto
             print("El puerto serial no está abierto")
     except serial.SerialException: # Si el puerto serial no está disponible
         print("El puerto serial no está disponible")
     finally:
-        ser.close()
+        ser.close() # Cerrar el puerto serial
 
 # Ejecutar la función principal
 comunicar_puerto_serial()

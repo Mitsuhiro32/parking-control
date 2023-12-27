@@ -50,13 +50,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function dias()
-    {
-        return $this->belongsToMany(Dia::class, 'dia_usuarios');
-    }
-
     public function registros()
     {
         return $this->hasMany(Registro::class, 'usuario_id');
+    }
+
+    public function diaUsuario()
+    {
+        return $this->hasMany(DiaUsuario::class, 'usuario_id');
+    }
+
+    public function auditoria_usuarios()
+    {
+        return $this->hasMany(AuditoriaUsuario::class, 'usuario_id');
     }
 }

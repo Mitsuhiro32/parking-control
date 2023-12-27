@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="modal-footer d-flex justify-content-between">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary" onclick="this.disabled=true; this.form.submit();">Guardar</button>
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                         </form>
@@ -53,5 +53,6 @@
 
         <!-- Datatable de estacionamientos -->
         @livewire('estacionamiento-datatable')
+        <br>
     </div>
 @endsection
