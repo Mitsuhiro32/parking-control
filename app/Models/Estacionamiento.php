@@ -14,6 +14,7 @@ class Estacionamiento extends Model
         'nombre',
         'capacidad',
         'ocupado',
+        'autor'
     ];
 
     public function registros()

@@ -31,6 +31,7 @@ class UsuarioController extends Controller
         $usuario = new User();
         $usuario->fill($request->all());
         $usuario->password = Hash::make($request->password); // Encriptar la contraseña
+        $usuario->autor = auth()->user()->nombre;
         $usuario->save();
         $usuario->assignRole($request->rol);
         $this->flash('success', 'Creado correctamente');
@@ -45,11 +46,13 @@ class UsuarioController extends Controller
         if ($request->has('estado')) {
             $usuario->estado = $request->estado;
             $usuario->uid_tarjeta = $request->uid_tarjeta;
+            $usuario->autor = auth()->user()->nombre;
             $usuario->save();
             $this->flash('success', 'Estado modificado correctamente');
         }
         else {
             $usuario->fill($request->all());
+            $usuario->autor = auth()->user()->nombre;
             $usuario->save();
             $usuario->syncRoles($request->rol);
             $this->flash('success', 'Modificado correctamente');

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\AuditoriaUsuario;
+use App\Models\User;
 use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 
 class AuditoriaUsuarioDatatable extends DataTableComponent
@@ -22,9 +23,13 @@ class AuditoriaUsuarioDatatable extends DataTableComponent
             Column::make("Id", "id")
                 ->sortable()
                 ->setSortingPillDirections('Asc', 'Desc'),
-            Column::make("Usuario Id", "usuario_id")
+            Column::make("Usuario", "usuario_id")
                 ->sortable()
-                ->setSortingPillDirections('Asc', 'Desc'),
+                ->setSortingPillDirections('Asc', 'Desc')
+                ->format(function ($value) {
+                    $usuario = User::find($value);
+                    return $usuario ? $usuario->nombre : '';
+                }),
             Column::make("Uid Tarjeta", "uid_tarjeta")
                 ->sortable()
                 ->setSortingPillDirections('Asc', 'Desc')

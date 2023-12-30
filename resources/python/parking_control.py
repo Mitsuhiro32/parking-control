@@ -2,7 +2,6 @@ import serial
 import time
 import datetime
 import psycopg2
-import datetime
 
 # Configurar la conexión con la base de datos
 connection = psycopg2.connect(user='postgres', password='postgres32', host='localhost', dbname='parking')
@@ -19,7 +18,7 @@ registroID = None
 # Validar el usuario y si ese usuario está activo
 def validar_usuario(uid):
     global usuarioID
-    consultaUsuario = f"SELECT id FROM users WHERE uid_tarjeta = '{uid}' AND estado = 'True'"
+    consultaUsuario = f"SELECT * FROM users WHERE uid_tarjeta = '{uid}' AND estado = True"
     cursor.execute(consultaUsuario)
     result = cursor.fetchone()
     usuarioID = result[0] if result is not None else None # Retorna el id del usuario si existe, None en caso contrario
@@ -32,7 +31,7 @@ def validar_usuario(uid):
 # Validar el estacionamiento
 def validar_estacionamiento(est):
     global estacionamientoID
-    consultaEstacionamiento = f"SELECT id FROM estacionamientos WHERE nombre = '{est}' AND estado = 'True'"
+    consultaEstacionamiento = f"SELECT * FROM estacionamientos WHERE nombre = '{est}' AND estado = True"
     cursor.execute(consultaEstacionamiento)
     result = cursor.fetchone()
     estacionamientoID = result[0] if result is not None else None # Retorna el id del estacionamiento si existe, None en caso contrario
@@ -47,7 +46,7 @@ def validar_registro():
     global usuarioID
     global estacionamientoID
     global registroID
-    consulta = f"SELECT id FROM registros WHERE usuario_id = '{usuarioID}' AND estacionamiento_id = '{estacionamientoID}' AND fecha_hora_entrada IS NOT NULL AND fecha_hora_salida IS NULL"
+    consulta = f"SELECT * FROM registros WHERE usuario_id = '{usuarioID}' AND estacionamiento_id = '{estacionamientoID}' AND fecha_hora_entrada IS NOT NULL AND fecha_hora_salida IS NULL"
     cursor.execute(consulta)
     result = cursor.fetchone()
     registroID = result[0] if result is not None else None # Retorna el id del registro si existe, None en caso contrario
@@ -60,7 +59,7 @@ def validar_registro():
 
 def estacionamiento_lleno():
     global estacionamientoID
-    consulta = f"SELECT id FROM estacionamientos WHERE id = '{estacionamientoID}' AND ocupado < capacidad"
+    consulta = f"SELECT * FROM estacionamientos WHERE id = '{estacionamientoID}' AND ocupado < capacidad"
     cursor.execute(consulta)
     result = cursor.fetchone()
     estacionamientoID = result[0] if result is not None else None # Retorna el id del estacionamiento si existe, None en caso contrario
@@ -71,7 +70,7 @@ def estacionamiento_lleno():
         return True
 
 def usuario_habilitado():
-    dias_semana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
+    dias_semana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
 
     # Obtener el número del día de la semana (0 = Lunes, 1 = Martes, etc.)
     numero_dia = datetime.datetime.today().weekday()
@@ -80,10 +79,10 @@ def usuario_habilitado():
     nombre_dia = dias_semana[numero_dia]
 
     global usuarioID
-    consulta = f"SELECT id FROM dia_usuarios WHERE usuario_id = '{usuarioID}' AND dia = '{nombre_dia}'"
+    consulta = f"SELECT * FROM dia_usuarios WHERE usuario_id = '{usuarioID}' AND dia = '{nombre_dia}'"
     cursor.execute(consulta)
     result = cursor.fetchone()
-    usuarioID = result[0] if result is not None else None # Retorna el id del usuario si existe, None en caso contrario
+    usuarioID = result[1] if result is not None else None # Retorna el id del usuario si existe, None en caso contrario
 
     if usuarioID is None: # Si el usuario no está habilitado
         return False

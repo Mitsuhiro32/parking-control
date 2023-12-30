@@ -28,23 +28,29 @@ class DiaUsuarioController extends Controller
 
     public function store(Request $request)
     {
-        $diaUsuarios = request()->except('_token');
-        DiaUsuario::insert($diaUsuarios);
+        $diaUsuario = new DiaUsuario();
+        $diaUsuario->fill($request->all());
+        $diaUsuario->autor = auth()->user()->nombre;
+        $diaUsuario->save();
         $this->flash('success', 'Creado correctamente');
         return redirect(route('diaUsuarios.index'));
     }
 
     public function update(Request $request, $id)
     {
-        $diaUsuarios = request()->except(['_token', '_method']);
-        DiaUsuario::where('id', '=', $id)->update($diaUsuarios);
+        $diaUsuario = DiaUsuario::findOrFail($id);
+        $diaUsuario->fill($request->all());
+        $diaUsuario->autor = auth()->user()->nombre;
+        $diaUsuario->save();
         $this->flash('success', 'Modificado correctamente');
         return redirect(route('diaUsuarios.index'));
     }
 
     public function destroy($id)
     {
-        DiaUsuario::destroy($id);
+        $diaUsuario = DiaUsuario::findOrFail($id);
+        $diaUsuario->autor = auth()->user()->nombre;
+        $diaUsuario->delete();
         $this->flash('warning', 'Eliminado correctamente');
         return redirect(route('diaUsuarios.index'));
     }

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('uid_tarjeta')->nullable()->unique();
             $table->string('rol');
             $table->boolean('estado')->default(1);
+            $table->string('autor');
             $table->rememberToken();
             $table->timestamps();
         });

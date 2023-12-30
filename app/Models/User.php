@@ -27,7 +27,8 @@ class User extends Authenticatable
         'password',
         'uid_tarjeta',
         'rol',
-        'estado'
+        'estado',
+        'autor'
     ];
 
     /**

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\AuditoriaDiaUsuario;
+use App\Models\User;
 
 class AuditoriaDiaUsuarioDatatable extends DataTableComponent
 {
@@ -24,9 +25,13 @@ class AuditoriaDiaUsuarioDatatable extends DataTableComponent
             Column::make("Dia Usuario Id", "dia_usuario_id")
                 ->sortable()
                 ->setSortingPillDirections('Asc', 'Desc'),
-            Column::make("Usuario Id", "usuario_id")
+            Column::make("Usuario", "usuario_id")
                 ->sortable()
-                ->setSortingPillDirections('Asc', 'Desc'),
+                ->setSortingPillDirections('Asc', 'Desc')
+                ->format(function ($value) {
+                    $usuario = User::find($value);
+                    return $usuario ? $usuario->nombre : '';
+                }),
             Column::make("Día", "dia")
                 ->sortable(),
             Column::make("Facultad", "facultad")

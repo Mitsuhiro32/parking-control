@@ -14,8 +14,8 @@ class DiaUsuario extends Model
         'usuario_id',
         'dia',
         'facultad',
+        'autor'
     ];
-    public $timestamps = false;
 
     public function usuario()
     {

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('usuario_id')->references('id')->on('users')->cascadeOnDelete();
             $table->string('dia');
             $table->string('facultad');
+            $table->string('autor');
             $table->timestamps();
         });
     }

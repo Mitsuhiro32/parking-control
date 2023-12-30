@@ -16,6 +16,7 @@ class EstacionamientoSeeder extends Seeder
         Estacionamiento::create([
             'nombre' => 'UNAE',
             'capacidad' => '26',
+            'autor' => 'Mitsuhiro',
         ]);
     }
 }

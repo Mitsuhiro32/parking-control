@@ -25,17 +25,30 @@ class EstacionamientoController extends Controller
 
     public function store(Request $request)
     {
-        $estacionamientos = request()->except('_token');
-        Estacionamiento::insert($estacionamientos);
+        $estacionamiento = new Estacionamiento();
+        $estacionamiento->fill($request->all());
+        $estacionamiento->autor = auth()->user()->nombre;
+        $estacionamiento->save();
         $this->flash('success', 'Creado correctamente');
         return redirect(route('estacionamientos.index'));
     }
 
     public function update(Request $request, $id)
     {
-        $estacionamientos = request()->except(['_token', '_method']);
-        Estacionamiento::where('id', '=', $id)->update($estacionamientos);
-        $this->flash('success', 'Modificado correctamente');
+        $estacionamiento = Estacionamiento::findOrFail($id);
+
+        // Actualizar campo estado
+        if ($request->has('estado')) {
+            $estacionamiento->estado = $request->estado;
+            $estacionamiento->autor = auth()->user()->nombre;
+            $estacionamiento->save();
+            $this->flash('success', 'Estado modificado correctamente');
+        } else {
+            $estacionamiento->fill($request->all());
+            $estacionamiento->autor = auth()->user()->nombre;
+            $estacionamiento->save();
+            $this->flash('success', 'Modificado correctamente');
+        }
         return redirect(route('estacionamientos.index'));
     }
 }
