@@ -28,12 +28,12 @@
                                     <label for="nombre">Nombre</label>
                                     <br><br>
                                     <input type="text" class="form-control" name="nombre" id="nombre"
-                                        placeholder="Nombre" value="{{ $row->nombre }}" required>
+                                        placeholder="Nombre" value="{{ $row->nombre }}">
                                     <br>
                                     <label for="capacidad">Capacidad</label>
                                     <br><br>
                                     <input type="number" class="form-control" name="capacidad" id="capacidad"
-                                        placeholder="Capacidad" value="{{ $row->capacidad }}" required>
+                                        placeholder="Capacidad" value="{{ $row->capacidad }}">
                                 </div>
                         </div>
 

@@ -6,8 +6,10 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Estacionamiento;
 use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
+use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
+use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 
 class EstacionamientoDatatable extends DataTableComponent
 {
@@ -17,8 +19,9 @@ class EstacionamientoDatatable extends DataTableComponent
 
     public function filters(): array
     {
+
         return [
-            /* SelectFilter::make('Estado')
+            SelectFilter::make('Estado')
                 ->options([
                     '' => 'Todos',
                     '1' => 'Activo',
@@ -30,12 +33,14 @@ class EstacionamientoDatatable extends DataTableComponent
                     } elseif ($value === '0') {
                         $builder->where('estado', false);
                     }
-                }), */
+                }),
         ];
     }
 
     public function configure(): void
     {
+        $this->setLoadingPlaceholderEnabled();
+        $this->setLoadingPlaceholderContent('Cargando...');
         $this->setPrimaryKey('id');
         $this->setSingleSortingStatus(false);
         $this->setDefaultSort('id', 'asc');

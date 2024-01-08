@@ -25,12 +25,22 @@ class EstacionamientoController extends Controller
 
     public function store(Request $request)
     {
+        $messages = [
+            'nombre.required' => 'El campo Nombre es obligatorio.',
+            'capacidad.required' => 'El campo Capacidad es obligatorio.',
+        ];
+
+        $validation = $request->validate([
+            'nombre' => 'required',
+            'capacidad' => 'required',
+        ], $messages);
+
         $estacionamiento = new Estacionamiento();
-        $estacionamiento->fill($request->all());
+        $estacionamiento->fill($validation);
         $estacionamiento->autor = auth()->user()->nombre;
         $estacionamiento->save();
         $this->flash('success', 'Creado correctamente');
-        return redirect(route('estacionamientos.index'));
+        return back();
     }
 
     public function update(Request $request, $id)
@@ -44,11 +54,21 @@ class EstacionamientoController extends Controller
             $estacionamiento->save();
             $this->flash('success', 'Estado modificado correctamente');
         } else {
-            $estacionamiento->fill($request->all());
+            $messages = [
+                'nombre.required' => 'El campo Nombre es obligatorio.',
+                'capacidad.required' => 'El campo Capacidad es obligatorio.',
+            ];
+
+            $validation = $request->validate([
+                'nombre' => 'required',
+                'capacidad' => 'required',
+            ], $messages);
+            
+            $estacionamiento->fill($validation);
             $estacionamiento->autor = auth()->user()->nombre;
             $estacionamiento->save();
             $this->flash('success', 'Modificado correctamente');
         }
-        return redirect(route('estacionamientos.index'));
+        return back();
     }
 }

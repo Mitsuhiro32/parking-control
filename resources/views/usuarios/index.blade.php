@@ -4,6 +4,16 @@
     <div class="container">
         <div class="col">
             <br>
+            @if ($errors->any())
+                <div class="alert alert-danger" id="errorAlert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <br>
             <h1>Usuarios</h1>
         </div>
 
@@ -30,35 +40,39 @@
                                     <label for="name">Nombre</label>
                                     <br><br>
                                     <input type="text" class="form-control" name="nombre" id="nombre"
-                                        placeholder="Nombre" required>
+                                        placeholder="Nombre" >
                                     <br>
                                     <label for="apellido">Apellido</label>
                                     <br><br>
                                     <input type="text" class="form-control" name="apellido" id="apellido"
-                                        placeholder="Apellido" required>
+                                        placeholder="Apellido" >
                                     <br>
                                     <label for="ci">Cédula de identidad</label>
                                     <br><br>
                                     <input type="text" class="form-control" name="ci" id="ci"
                                         placeholder="Cédula"
                                         oninput="this.value = this.value.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.')"
-                                        required>
+                                        >
                                     <br>
                                     <label for="telefono">Teléfono</label>
                                     <br><br>
                                     <input type="tel" class="form-control" name="telefono" id="telefono"
-                                        placeholder="Teléfono" required>
+                                        placeholder="Teléfono" >
                                     <br>
                                     <label for="email">Correo Electrónico</label>
                                     <br><br>
                                     <input type="email" class="form-control" name="email" id="email"
-                                        placeholder="Correo Electrónico" required>
+                                        placeholder="Correo Electrónico" >
                                     <br>
                                     <label for="password">Contraseña</label>
                                     <br><br>
-                                    <input type="password" name="password"
-                                        class="form-control @error('password') is-invalid @enderror" placeholder="Contraseña"
-                                        autocomplete="off" required>
+                                    <input type="password" name="password" class="form-control" placeholder="Contraseña"
+                                        autocomplete="off" >
+                                    <br>
+                                    <label for="password_confirmation">Confirmar Contraseña</label>
+                                    <br><br>
+                                    <input type="password" name="password_confirmation" class="form-control"
+                                        placeholder="Confirmar Contraseña" autocomplete="off" >
                                     <br>
                                     <div class="form-group">
                                         <label for="uid_tarjeta">UID Tarjeta</label>
@@ -72,7 +86,7 @@
                                     </div>
                                     <label for="rol">Rol</label>
                                     <br><br>
-                                    <select name="rol" id="rol" class="form-control" required>
+                                    <select name="rol" id="rol" class="form-control" >
                                         <option value="">Seleccione un rol</option>
                                         @foreach ($roles as $rol)
                                             @if ($rol->name !== 'Super Administrador')
@@ -84,9 +98,9 @@
                         </div>
 
                         <div class="modal-footer d-flex justify-content-between">
-                            <button type="submit" class="btn btn-primary" onclick="this.disabled=true; this.form.submit();">Guardar</button>
-                            <button type="button" class="btn btn-danger"
-                                data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary"
+                                onclick="this.disabled=true; this.form.submit();">Guardar</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                         </form>
                     </div>
@@ -192,5 +206,10 @@
                 port = null;
             }
         });
+
+        // Quitar el mensaje de alerta después de 8 segundos
+        setTimeout(function() {
+            $('#errorAlert').fadeOut('slow');
+        }, 8000); // 8 segundos
     </script>
 @endsection

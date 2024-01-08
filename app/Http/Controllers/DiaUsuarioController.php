@@ -28,22 +28,46 @@ class DiaUsuarioController extends Controller
 
     public function store(Request $request)
     {
+        $messages = [
+            'usuario_id.required' => 'El campo Usuario es obligatorio.',
+            'dia.required' => 'El campo Dia es obligatorio.',
+            'facultad.required' => 'El campo Facultad es obligatorio.',
+        ];
+
+        $validation = $request->validate([
+            'usuario_id' => 'required',
+            'dia' => 'required',
+            'facultad' => 'required',
+        ], $messages);
+
         $diaUsuario = new DiaUsuario();
-        $diaUsuario->fill($request->all());
+        $diaUsuario->fill($validation);
         $diaUsuario->autor = auth()->user()->nombre;
         $diaUsuario->save();
         $this->flash('success', 'Creado correctamente');
-        return redirect(route('diaUsuarios.index'));
+        return back();
     }
 
     public function update(Request $request, $id)
     {
+        $messages = [
+            'usuario_id.required' => 'El campo Usuario es obligatorio.',
+            'dia.required' => 'El campo Dia es obligatorio.',
+            'facultad.required' => 'El campo Facultad es obligatorio.',
+        ];
+
+        $validation = $request->validate([
+            'usuario_id' => 'required',
+            'dia' => 'required',
+            'facultad' => 'required',
+        ], $messages);
+
         $diaUsuario = DiaUsuario::findOrFail($id);
-        $diaUsuario->fill($request->all());
+        $diaUsuario->fill($validation);
         $diaUsuario->autor = auth()->user()->nombre;
         $diaUsuario->save();
         $this->flash('success', 'Modificado correctamente');
-        return redirect(route('diaUsuarios.index'));
+        return back();
     }
 
     public function destroy($id)
@@ -52,6 +76,6 @@ class DiaUsuarioController extends Controller
         $diaUsuario->autor = auth()->user()->nombre;
         $diaUsuario->delete();
         $this->flash('warning', 'Eliminado correctamente');
-        return redirect(route('diaUsuarios.index'));
+        return back();
     }
 }

@@ -18,25 +18,66 @@ class DiaUsuarioDatatable extends DataTableComponent
     {
         return [
             SelectFilter::make('Dia habilitado')
-                ->options(
-                    DiaUsuario::all()->pluck('dia', 'dia')->toArray(),
-                )
+                ->options([
+                    '' => 'Todos',
+                    'Lunes' => 'Lunes',
+                    'Martes' => 'Martes',
+                    'Miercoles' => 'Miercoles',
+                    'Jueves' => 'Jueves',
+                    'Viernes' => 'Viernes',
+                    'Sabado' => 'Sabado',
+                    'Domingo' => 'Domingo',
+                ])
                 ->filter(function (Builder $builder, string $value) {
-                    $builder->where('dia', $value);
+                    if ($value === 'Lunes') {
+                        $builder->where('dia', 'Lunes');
+                    } elseif ($value === 'Martes') {
+                        $builder->where('dia', 'Martes');
+                    } elseif ($value === 'Miercoles') {
+                        $builder->where('dia', 'Miercoles');
+                    } elseif ($value === 'Jueves') {
+                        $builder->where('dia', 'Jueves');
+                    } elseif ($value === 'Viernes') {
+                        $builder->where('dia', 'Viernes');
+                    } elseif ($value === 'Sabado') {
+                        $builder->where('dia', 'Sabado');
+                    } elseif ($value === 'Domingo') {
+                        $builder->where('dia', 'Domingo');
+                    }
                 }),
 
             SelectFilter::make('Facultad')
-                ->options(
-                    DiaUsuario::all()->pluck('facultad', 'facultad')->toArray()
-                )
+                ->options([
+                    '' => 'Todos',
+                    'FACEM' => 'FACEM',
+                    'FACAT' => 'FACAT',
+                    'FCJHS' => 'FCJHS',
+                    'FACSA' => 'FACSA',
+                    'FACVA' => 'FACVA',
+                    'ISEDE' => 'ISEDE',
+                ])
                 ->filter(function (Builder $builder, string $value) {
-                    $builder->where('facultad', $value);
+                    if ($value === 'FACEM') {
+                        $builder->where('facultad', 'FACEM');
+                    } elseif ($value === 'FACAT') {
+                        $builder->where('facultad', 'FACAT');
+                    } elseif ($value === 'FCJHS') {
+                        $builder->where('facultad', 'FCJHS');
+                    } elseif ($value === 'FACSA') {
+                        $builder->where('facultad', 'FACSA');
+                    } elseif ($value === 'FACVA') {
+                        $builder->where('facultad', 'FACVA');
+                    } elseif ($value === 'ISEDE') {
+                        $builder->where('facultad', 'ISEDE');
+                    }
                 }),
         ];
     }
 
     public function configure(): void
     {
+        $this->setLoadingPlaceholderEnabled();
+        $this->setLoadingPlaceholderContent('Cargando...');
         $this->setPrimaryKey('id');
         $this->setSingleSortingStatus(false);
         $this->setDefaultSort('id', 'asc');
@@ -66,7 +107,7 @@ class DiaUsuarioDatatable extends DataTableComponent
                 ->label(
                     fn ($row) => view(('diaUsuarios.actions'), compact('row'))->with(['usuarios' => $usuarios])
                 )
-                // ->hideIf(!auth()->user()->can('diaUsuarios.editar') && !auth()->user()->can('diaUsuarios.eliminar'))
+            // ->hideIf(!auth()->user()->can('diaUsuarios.editar') && !auth()->user()->can('diaUsuarios.eliminar'))
         ];
     }
 }

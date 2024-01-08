@@ -27,7 +27,7 @@
                                 <div class="form-group">
                                     <label for="usuario_id">Usuario</label>
                                     <br><br>
-                                    <select name="usuario_id" id="usuario_id" class="form-control" required>
+                                    <select name="usuario_id" id="usuario_id" class="form-control" >
                                         <option value="">Seleccione un usuario</option>
                                         @foreach ($usuarios as $u)
                                             <option value="{{ $u->id }}"
@@ -39,7 +39,7 @@
                                     <br>
                                     <label for="dia">Día</label>
                                     <br><br>
-                                    <select name="dia" id="dia" class="form-control" required>
+                                    <select name="dia" id="dia" class="form-control" >
                                         <option value="">Seleccione un día</option>
                                         <option value="Lunes" {{ $row->dia == 'Lunes' ? 'selected' : '' }}>
                                             Lunes</option>
@@ -59,7 +59,7 @@
                                     <br>
                                     <label for="facultad">Facultad</label>
                                     <br><br>
-                                    <select name="facultad" id="facultad" class="form-control" required>
+                                    <select name="facultad" id="facultad" class="form-control" >
                                         <option value="">Seleccione una facultad</option>
                                         <option value="FACEM" {{ $row->facultad == 'FACEM' ? 'selected' : '' }}>
                                             FACEM</option>

@@ -28,14 +28,43 @@ class UsuarioController extends Controller
 
     public function store(Request $request)
     {
+        $messages = [
+            'nombre.required' => 'El campo Nombre es obligatorio.',
+            'apellido.required' => 'El campo Apellido es obligatorio.',
+            'ci.required' => 'El campo Cédula es obligatorio.',
+            'ci.unique' => 'La Cédula ya existe.',
+            'telefono.required' => 'El campo Teléfono es obligatorio.',
+            'email.required' => 'El campo Email es obligatorio.',
+            'email.email' => 'El campo Email debe ser un email válido.',
+            'email.unique' => 'El Email ya existe.',
+            'password.required' => 'El campo Contraseña es obligatorio.',
+            'password.confirmed' => 'El campo Contraseña no coincide.',
+            'password.min' => 'El campo Contraseña debe tener al menos 8 caracteres.',
+            'password.regex' => 'El campo Contraseña debe tener al menos una letra mayúscula, una letra minúscula y un número.',
+            'password_confirmation.required' => 'El necesario confirmar la contraseña.',
+            'rol.required' => 'El campo Rol es obligatorio.',
+        ];
+
+        $validation = $request->validate([
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'ci' => 'required|unique:users',
+            'telefono' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+            'password_confirmation' => 'required',
+            'rol' => 'required',
+        ], $messages);
+
         $usuario = new User();
-        $usuario->fill($request->all());
+        $usuario->fill($validation);
         $usuario->password = Hash::make($request->password); // Encriptar la contraseña
+        $usuario->password_confirmation = Hash::make($request->password_confirmation); // Encriptar confirmar contraseña
         $usuario->autor = auth()->user()->nombre;
         $usuario->save();
         $usuario->assignRole($request->rol);
         $this->flash('success', 'Creado correctamente');
-        return redirect(route('usuarios.index'));
+        return back();
     }
 
     public function update(Request $request, $id)
@@ -51,12 +80,31 @@ class UsuarioController extends Controller
             $this->flash('success', 'Estado modificado correctamente');
         }
         else {
-            $usuario->fill($request->all());
+            $messages = [
+                'nombre.required' => 'El campo Nombre es obligatorio.',
+                'apellido.required' => 'El campo Apellido es obligatorio.',
+                'ci.required' => 'El campo Cédula es obligatorio.',
+                'telefono.required' => 'El campo Teléfono es obligatorio.',
+                'email.required' => 'El campo Email es obligatorio.',
+                'email.email' => 'El campo Email debe ser un email válido.',
+                'rol.required' => 'El campo Rol es obligatorio.',
+            ];
+
+            $validation = $request->validate([
+                'nombre' => 'required',
+                'apellido' => 'required',
+                'ci' => 'required',
+                'telefono' => 'required',
+                'email' => 'required|email',
+                'rol' => 'required',
+            ], $messages);
+            
+            $usuario->fill($validation);
             $usuario->autor = auth()->user()->nombre;
             $usuario->save();
             $usuario->syncRoles($request->rol);
             $this->flash('success', 'Modificado correctamente');
         }
-        return redirect(route('usuarios.index'));
+        return back();
     }
 }

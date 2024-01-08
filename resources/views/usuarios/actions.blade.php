@@ -39,29 +39,29 @@
                                 <label for="name">Nombre</label>
                                 <br><br>
                                 <input type="text" class="form-control" name="nombre" id="nombre"
-                                    placeholder="Nombre" value="{{ $row->nombre }}" required>
+                                    placeholder="Nombre" value="{{ $row->nombre }}" >
                                 <br>
                                 <label for="apellido">Apellido</label>
                                 <br><br>
                                 <input type="text" class="form-control" name="apellido" id="apellido"
-                                    placeholder="Apellido" value="{{ $row->apellido }}" required>
+                                    placeholder="Apellido" value="{{ $row->apellido }}" >
                                 <br>
                                 <label for="ci">Cédula de identidad</label>
                                 <br><br>
                                 <input type="text" class="form-control" name="ci" id="ci"
                                     placeholder="Cédula"
                                     oninput="this.value = this.value.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.')"
-                                    value="{{ $row->ci }}" required>
+                                    value="{{ $row->ci }}" >
                                 <br>
                                 <label for="telefono">Teléfono</label>
                                 <br><br>
                                 <input type="text" class="form-control" name="telefono" id="telefono"
-                                    placeholder="Teléfono" value="{{ $row->telefono }}" required>
+                                    placeholder="Teléfono" value="{{ $row->telefono }}" >
                                 <br>
                                 <label for="email">Correo Electrónico</label>
                                 <br><br>
                                 <input type="email" class="form-control" name="email" id="email"
-                                    placeholder="Correo Electrónico" value="{{ $row->email }}" required>
+                                    placeholder="Correo Electrónico" value="{{ $row->email }}" >
                                 <br>
                                 {{-- <label for="password">Contraseña</label>
                                 <br><br>
@@ -83,7 +83,7 @@
                                 @if ($row->rol != 'Super Administrador')
                                     <label for="rol">Rol</label>
                                     <br><br>
-                                    <select class="form-select" name="rol" id="rol" required>
+                                    <select class="form-select" name="rol" id="rol" >
                                         <option value="Administrador" {{ $row->rol == 'Administrador' ? 'selected' : '' }}>
                                             Administrador</option>
                                         <option value="Usuario" {{ $row->rol == 'Usuario' ? 'selected' : '' }}>Usuario

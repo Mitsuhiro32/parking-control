@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'telefono' => '0985456123',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin123'),
+            'password_confirmation' => bcrypt('admin123'),
             'rol' => 'Super Administrador',
             'autor' => 'Mitsuhiro',
         ])->assignRole('Super Administrador');

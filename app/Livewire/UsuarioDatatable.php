@@ -18,6 +18,41 @@ class UsuarioDatatable extends DataTableComponent
     public function filters(): array
     {
         return [
+            SelectFilter::make('UID Tarjeta')
+            ->options([
+                '' => 'Todos',
+                '1' => 'Asignado',
+                '0' => 'No asignado',
+            ])
+                ->filter(function (Builder $builder, string $value) {
+                    if ($value === '1') {
+                        $builder->whereNotNull('uid_tarjeta');
+                    } elseif ($value === '0') {
+                        $builder->whereNull('uid_tarjeta');
+                    }
+                }),
+            SelectFilter::make('Rol')
+                ->options([
+                    '' => 'Todos',
+                    'Super Administrador' => 'Super Administrador',
+                    'Administrador' => 'Administrador',
+                    'Usuario' => 'Usuario',
+                ])
+                ->filter(function (Builder $builder, string $value) {
+                    if ($value === 'Super Administrador') {
+                        $builder->whereHas('roles', function ($query) {
+                            $query->where('name', 'Super Administrador');
+                        });
+                    } elseif ($value === 'Administrador') {
+                        $builder->whereHas('roles', function ($query) {
+                            $query->where('name', 'Administrador');
+                        });
+                    } elseif ($value === 'Usuario') {
+                        $builder->whereHas('roles', function ($query) {
+                            $query->where('name', 'Usuario');
+                        });
+                    }
+                }),
             SelectFilter::make('Estado')
                 ->options([
                     '' => 'Todos',
@@ -31,41 +66,13 @@ class UsuarioDatatable extends DataTableComponent
                         $builder->where('estado', false);
                     }
                 }),
-            SelectFilter::make('Rol')
-                ->options([
-                    '' => 'Todos',
-                    'Administrador' => 'Administrador',
-                    'Usuario' => 'Usuario',
-                ])
-                ->filter(function (Builder $builder, string $value) {
-                    if ($value === 'Administrador') {
-                        $builder->whereHas('roles', function ($query) {
-                            $query->where('name', 'Administrador');
-                        });
-                    } elseif ($value === 'Usuario') {
-                        $builder->whereHas('roles', function ($query) {
-                            $query->where('name', 'Usuario');
-                        });
-                    }
-                }),
-            SelectFilter::make('UID Tarjeta')
-                ->options([
-                    '' => 'Todos',
-                    '1' => 'Asignado',
-                    '0' => 'No asignado',
-                ])
-                ->filter(function (Builder $builder, string $value) {
-                    if ($value === '1') {
-                        $builder->whereNotNull('uid_tarjeta');
-                    } elseif ($value === '0') {
-                        $builder->whereNull('uid_tarjeta');
-                    }
-                }),
         ];
     }
 
     public function configure(): void
     {
+        $this->setLoadingPlaceholderEnabled();
+        $this->setLoadingPlaceholderContent('Cargando...');
         $this->setPrimaryKey('id');
         $this->setSingleSortingStatus(false);
         $this->setDefaultSort('id', 'asc');

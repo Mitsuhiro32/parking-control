@@ -25,6 +25,7 @@ class User extends Authenticatable
         'telefono',
         'email',
         'password',
+        'password_confirmation',
         'uid_tarjeta',
         'rol',
         'estado',
