@@ -60,6 +60,7 @@ class UsuarioController extends Controller
         $usuario->fill($validation);
         $usuario->password = Hash::make($request->password); // Encriptar la contraseña
         $usuario->password_confirmation = Hash::make($request->password_confirmation); // Encriptar confirmar contraseña
+        $usuario->uid_tarjeta = $request->uid_tarjeta;
         $usuario->autor = auth()->user()->nombre;
         $usuario->save();
         $usuario->assignRole($request->rol);
@@ -98,8 +99,9 @@ class UsuarioController extends Controller
                 'email' => 'required|email',
                 'rol' => 'required',
             ], $messages);
-            
+
             $usuario->fill($validation);
+            $usuario->uid_tarjeta = $request->uid_tarjeta;
             $usuario->autor = auth()->user()->nombre;
             $usuario->save();
             $usuario->syncRoles($request->rol);

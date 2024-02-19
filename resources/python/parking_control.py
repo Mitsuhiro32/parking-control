@@ -46,7 +46,11 @@ def validar_registro():
     global usuarioID
     global estacionamientoID
     global registroID
-    consulta = f"SELECT * FROM registros WHERE usuario_id = '{usuarioID}' AND estacionamiento_id = '{estacionamientoID}' AND fecha_hora_entrada IS NOT NULL AND fecha_hora_salida IS NULL"
+
+    # Obtener la fecha actual
+    fecha_actual = datetime.date.today().strftime('%Y-%m-%d')
+
+    consulta = f"SELECT * FROM registros WHERE usuario_id = '{usuarioID}' AND estacionamiento_id = '{estacionamientoID}' AND fecha_hora_entrada IS NOT NULL AND fecha_hora_salida IS NULL AND fecha_hora_entrada::date = '{fecha_actual}'"
     cursor.execute(consulta)
     result = cursor.fetchone()
     registroID = result[0] if result is not None else None # Retorna el id del registro si existe, None en caso contrario
@@ -130,7 +134,7 @@ def restar_ocupado():
 def comunicar_puerto_serial():
     try:
         # Configurar el puerto serial
-        ser = serial.Serial('COM5', 9600)
+        ser = serial.Serial('COM3', 9600)
 
         time.sleep(2)  # Espera 2 segundos para que el puerto se abra
 
