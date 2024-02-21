@@ -40,6 +40,6 @@
             {{ csrf_field() }}
         </form>
 
-        <a class="dropdown-item" href="{{ route('password.request') }}">Olvidé mi contraseña</a>
+        {{-- <a class="dropdown-item" href="{{ route('password.request') }}">Olvidé mi contraseña</a> --}}
     </div>
 </div>

@@ -50,12 +50,13 @@
                         </span>
                     </div>
                     <div class="mb-2">
-                        <label class="form-check">
+                        {{-- <label class="form-check">
                             <input type="checkbox" class="form-check-input" />
                             <span class="form-check-label">Recuérdame</span>
-                        </label>
+                        </label> --}}
                     </div>
                     <div class="form-footer">
+                        <br>
                         <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
                     </div>
                 </form>

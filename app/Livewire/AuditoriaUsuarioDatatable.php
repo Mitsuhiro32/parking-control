@@ -26,12 +26,14 @@ class AuditoriaUsuarioDatatable extends DataTableComponent
                 ])
                 ->filter(function (Builder $builder, string $value) {
                     if ($value === 'Administrador') {
-                        $builder->whereHas('roles', function ($query) {
-                            $query->where('name', 'Administrador');
+                        $builder->where(function ($query) {
+                            $query->where('rol', 'Administrador')
+                                ->orWhere('rol', 'Usuario -> Administrador');
                         });
                     } elseif ($value === 'Usuario') {
-                        $builder->whereHas('roles', function ($query) {
-                            $query->where('name', 'Usuario');
+                        $builder->where(function ($query) {
+                            $query->where('rol', 'Usuario')
+                                ->orWhere('rol', 'Administrador -> Usuario');
                         });
                     }
                 }),
@@ -44,9 +46,15 @@ class AuditoriaUsuarioDatatable extends DataTableComponent
                 ])
                 ->filter(function (Builder $builder, string $value) {
                     if ($value === '1') {
-                        $builder->where('estado', true);
+                        $builder->where(function ($query) {
+                            $query->where('estado', 'Activo')
+                                ->orWhere('estado', 'Inactivo -> Activo');
+                        });
                     } elseif ($value === '0') {
-                        $builder->where('estado', false);
+                        $builder->where(function ($query) {
+                            $query->where('estado', 'Inactivo')
+                                ->orWhere('estado', 'Activo -> Inactivo');
+                        });
                     }
                 }),
 
@@ -75,15 +83,15 @@ class AuditoriaUsuarioDatatable extends DataTableComponent
         $this->setLoadingPlaceholderContent('Cargando...');
         $this->setPrimaryKey('id');
         $this->setSingleSortingStatus(false);
-        $this->setDefaultSort('id', 'asc');
+        $this->setDefaultSort('fecha_modificacion', 'desc');
     }
 
     public function columns(): array
     {
         return [
-            Column::make("Id", "id")
+            /* Column::make("Id", "id")
                 ->sortable()
-                ->setSortingPillDirections('Asc', 'Desc'),
+                ->setSortingPillDirections('Asc', 'Desc'), */
             Column::make("Usuario", "usuario_id")
                 ->sortable()
                 ->searchable()

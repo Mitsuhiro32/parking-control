@@ -18,7 +18,7 @@ class AuditoriaDiaUsuarioDatatable extends DataTableComponent
     public function filters(): array
     {
         return [
-            SelectFilter::make('Dia habilitado')
+            /* SelectFilter::make('Dia habilitado')
                 ->options([
                     '' => 'Todos',
                     'Lunes' => 'Lunes',
@@ -71,7 +71,7 @@ class AuditoriaDiaUsuarioDatatable extends DataTableComponent
                     } elseif ($value === 'ISEDE') {
                         $builder->where('facultad', 'ISEDE');
                     }
-                }),
+                }), */
 
             SelectFilter::make('Acción')
                 ->options([
@@ -98,18 +98,18 @@ class AuditoriaDiaUsuarioDatatable extends DataTableComponent
         $this->setLoadingPlaceholderContent('Cargando...');
         $this->setPrimaryKey('id');
         $this->setSingleSortingStatus(false);
-        $this->setDefaultSort('id', 'asc');
+        $this->setDefaultSort('fecha_modificacion', 'desc');
     }
 
     public function columns(): array
     {
         return [
-            Column::make("Id", "id")
+            /* Column::make("Id", "id")
                 ->sortable()
                 ->setSortingPillDirections('Asc', 'Desc'),
             Column::make("Dia Usuario Id", "dia_usuario_id")
                 ->sortable()
-                ->setSortingPillDirections('Asc', 'Desc'),
+                ->setSortingPillDirections('Asc', 'Desc'), */
             Column::make("Usuario", "usuario_id")
                 ->sortable()
                 ->searchable()
