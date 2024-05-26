@@ -44,7 +44,7 @@
                                             legend: {
                                                 display: true,
                                                 labels: {
-                                                    color: 'white',
+                                                    color: 'black',
                                                     font: {
                                                         size: 12
                                                     }

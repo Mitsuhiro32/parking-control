@@ -23,6 +23,10 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 Auth::routes(['reset' => true]);
 
+Route::get('/register', function () {
+    return redirect('/');
+});
+
 Route::resource('/', HomeController::class)->only('index')->middleware(['can:home','auth','verified']);
 
 Route::resource('estacionamientos', EstacionamientoController::class)->only('index','store','update')->middleware(['auth','verified']);

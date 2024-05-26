@@ -8,7 +8,7 @@
                     <div class="text-center mb-1 mt-5">
                         <a href="" class="navbar-brand navbar-brand-autodark">
                             <img src="{{ asset(config('tablar.auth_logo.img.path', 'assets/logo.svg')) }}" height="36"
-                                class="navbar-brand-image d-inline-block align-middle" alt=""></a>
+                                class="navbar-brand-image d-inline-block align-middle" alt="" style="filter: invert(100%);"></a>
                     </div>
                     <form class="card" action="{{ route('password.email') }}" method="post" novalidate>
                         @csrf

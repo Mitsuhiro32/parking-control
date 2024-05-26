@@ -16,7 +16,7 @@ class RegistroDatatable extends DataTableComponent
     protected $model = Registro::class;
     public ?int $searchFilterDebounce = 500;
 
-    public array $bulkActions = [
+    /* public array $bulkActions = [
         'exportSelected' => 'Exportar',
     ];
 
@@ -25,7 +25,7 @@ class RegistroDatatable extends DataTableComponent
         $registros = $this->getSelected();
         $this->clearSelected();
         return Excel::download(new RegistrosExport($registros), 'registros.xlsx');
-    }
+    } */
 
     public function filters(): array
     {

@@ -5,7 +5,7 @@
         <div class="text-center mb-1 mt-5">
             <a href="" class="navbar-brand navbar-brand-autodark">
                 <img src="{{ asset(config('tablar.auth_logo.img.path', 'assets/logo.svg')) }}" height="36"
-                    class="navbar-brand-image d-inline-block align-middle" alt=""></a>
+                    class="navbar-brand-image d-inline-block align-middle" alt="Logo de sistema de control de estacionamiento" style="filter: invert(100%);"></a>
         </div>
         <div class="card card-md">
             <div class="card-body">
