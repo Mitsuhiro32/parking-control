@@ -58,8 +58,8 @@ class AuditoriaEstacionamientoDatatable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setLoadingPlaceholderEnabled();
-        $this->setLoadingPlaceholderContent('Cargando...');
+        /* $this->setLoadingPlaceholderEnabled();
+        $this->setLoadingPlaceholderContent('Cargando...'); */
         $this->setPrimaryKey('id');
         $this->setSingleSortingStatus(false);
         $this->setDefaultSort('fecha_modificacion', 'desc');

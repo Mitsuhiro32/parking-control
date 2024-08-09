@@ -80,8 +80,8 @@ class RegistroDatatable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setLoadingPlaceholderEnabled();
-        $this->setLoadingPlaceholderContent('Cargando...');
+        /* $this->setLoadingPlaceholderEnabled();
+        $this->setLoadingPlaceholderContent('Cargando...'); */
         $this->setPrimaryKey('id');
         $this->setSingleSortingStatus(false);
         $this->setDefaultSort('id', 'asc');
@@ -129,7 +129,7 @@ class RegistroDatatable extends DataTableComponent
                 }),
             Column::make('Acciones')
                 ->label(
-                    fn ($row) => view(('Registros.actions'), compact('row'))->with([ 'usuarios' => $usuarios, 'estacionamientos' => $estacionamientos])
+                    fn($row) => view(('Registros.actions'), compact('row'))->with(['usuarios' => $usuarios, 'estacionamientos' => $estacionamientos])
                 )
         ];
     }

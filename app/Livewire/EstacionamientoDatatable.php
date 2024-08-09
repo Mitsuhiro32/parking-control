@@ -39,8 +39,8 @@ class EstacionamientoDatatable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setLoadingPlaceholderEnabled();
-        $this->setLoadingPlaceholderContent('Cargando...');
+        /* $this->setLoadingPlaceholderEnabled();
+        $this->setLoadingPlaceholderContent('Cargando...'); */
         $this->setPrimaryKey('id');
         $this->setSingleSortingStatus(false);
         $this->setDefaultSort('id', 'asc');
@@ -51,7 +51,8 @@ class EstacionamientoDatatable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->sortable()
-                ->setSortingPillDirections('Asc', 'Desc'),
+                ->setSortingPillDirections('Asc', 'Desc')
+                ->deselected(),
             Column::make("Nombre", "nombre")
                 ->sortable()
                 ->searchable(),
@@ -63,12 +64,12 @@ class EstacionamientoDatatable extends DataTableComponent
                 ->collapseOnMobile()
                 ->setSortingPillDirections('Asc', 'Desc'),
             BooleanColumn::make("Estado", "estado")
-            ->sortable(),
+                ->sortable(),
             Column::make('Acciones')
                 ->label(
                     fn($row) => view('estacionamientos.actions', compact('row'))
                 )
-                // ->hideIf(!auth()->user()->can('estacionamientos.editar') && !auth()->user()->can('estacionamientos.desactivar'))
+            // ->hideIf(!auth()->user()->can('estacionamientos.editar') && !auth()->user()->can('estacionamientos.desactivar'))
         ];
     }
 }

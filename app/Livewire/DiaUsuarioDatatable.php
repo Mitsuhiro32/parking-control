@@ -76,8 +76,8 @@ class DiaUsuarioDatatable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setLoadingPlaceholderEnabled();
-        $this->setLoadingPlaceholderContent('Cargando...');
+        /* $this->setLoadingPlaceholderEnabled();
+        $this->setLoadingPlaceholderContent('Cargando...'); */
         $this->setPrimaryKey('id');
         $this->setSingleSortingStatus(false);
         $this->setDefaultSort('id', 'asc');
@@ -90,7 +90,8 @@ class DiaUsuarioDatatable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->sortable()
-                ->setSortingPillDirections('Asc', 'Desc'),
+                ->setSortingPillDirections('Asc', 'Desc')
+                ->deselected(),
             Column::make("Usuario", "usuario_id")
                 ->searchable()
                 ->sortable()
@@ -105,7 +106,7 @@ class DiaUsuarioDatatable extends DataTableComponent
                 ->sortable(),
             Column::make('Acciones')
                 ->label(
-                    fn ($row) => view(('diaUsuarios.actions'), compact('row'))->with(['usuarios' => $usuarios])
+                    fn($row) => view(('diaUsuarios.actions'), compact('row'))->with(['usuarios' => $usuarios])
                 )
             // ->hideIf(!auth()->user()->can('diaUsuarios.editar') && !auth()->user()->can('diaUsuarios.eliminar'))
         ];

@@ -19,11 +19,11 @@ class UsuarioDatatable extends DataTableComponent
     {
         return [
             SelectFilter::make('UID Tarjeta')
-            ->options([
-                '' => 'Todos',
-                '1' => 'Asignado',
-                '0' => 'No asignado',
-            ])
+                ->options([
+                    '' => 'Todos',
+                    '1' => 'Asignado',
+                    '0' => 'No asignado',
+                ])
                 ->filter(function (Builder $builder, string $value) {
                     if ($value === '1') {
                         $builder->whereNotNull('uid_tarjeta');
@@ -71,8 +71,8 @@ class UsuarioDatatable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setLoadingPlaceholderEnabled();
-        $this->setLoadingPlaceholderContent('Cargando...');
+        /* $this->setLoadingPlaceholderEnabled();
+        $this->setLoadingPlaceholderContent('Cargando...'); */
         $this->setPrimaryKey('id');
         $this->setSingleSortingStatus(false);
         $this->setDefaultSort('id', 'asc');
@@ -83,7 +83,8 @@ class UsuarioDatatable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->sortable()
-                ->setSortingPillDirections('Asc', 'Desc'),
+                ->setSortingPillDirections('Asc', 'Desc')
+                ->deselected(),
             Column::make("Nombre", "nombre")
                 ->sortable()
                 ->searchable(),
@@ -113,9 +114,9 @@ class UsuarioDatatable extends DataTableComponent
                 ->sortable(),
             Column::make('Acciones')
                 ->label(
-                    fn ($row) => view('usuarios.actions', compact('row'))
+                    fn($row) => view('usuarios.actions', compact('row'))
                 )
-                // ->hideIf(!auth()->user()->can('usuarios.editar') && !auth()->user()->can('usuarios.desactivar'))
+            // ->hideIf(!auth()->user()->can('usuarios.editar') && !auth()->user()->can('usuarios.desactivar'))
         ];
     }
 }
