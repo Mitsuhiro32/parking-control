@@ -5,10 +5,13 @@
         <div class="col">
             <br>
             <h1>Auditorías</h1>
-            <div class="btn-group d-flex justify-content-between" role="group" aria-label="Menu">
-                <button type="button" class="btn btn-outline-primary active" onclick="mostrarTabla('usuario')" id="btn-usuario">Auditoría de Usuarios</button>
-                <button type="button" class="btn btn-outline-primary" onclick="mostrarTabla('estacionamiento')" id="btn-estacionamiento">Auditoría de Estacionamientos</button>
-                <button type="button" class="btn btn-outline-primary" onclick="mostrarTabla('dia-usuario')" id="btn-dia-usuario">Auditoría de Días Hábiles de Usuarios</button>
+            <div class="btn-group d-flex justify-content-between flex-wrap" role="group" aria-label="Menu">
+                <button type="button" class="btn btn-outline-primary active" onclick="mostrarTabla('usuario')"
+                    id="btn-usuario">Auditoría de Usuarios</button>
+                <button type="button" class="btn btn-outline-primary" onclick="mostrarTabla('estacionamiento')"
+                    id="btn-estacionamiento">Auditoría de Estacionamientos</button>
+                <button type="button" class="btn btn-outline-primary" onclick="mostrarTabla('dia-usuario')"
+                    id="btn-dia-usuario">Auditoría de Días Hábiles de Usuarios</button>
             </div>
         </div>
         <br>
