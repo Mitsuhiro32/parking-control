@@ -44,19 +44,19 @@
                         @enderror
                         <br>
                     </div>
-                    <div class="mb-2">
+                    {{-- <div class="mb-2">
                         <span class="form-label-description">
                             <a href="{{ route('password.request') }}">Olvidé mi contraseña</a>
                         </span>
-                    </div>
+                    </div>--}}
                     <div class="mb-2">
-                        {{-- <label class="form-check">
+                        <label class="form-check">
                             <input type="checkbox" class="form-check-input" />
                             <span class="form-check-label">Recuérdame</span>
-                        </label> --}}
+                        </label>
                     </div>
                     <div class="form-footer">
-                        <br>
+                        {{-- <br> --}}
                         <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
                     </div>
                 </form>

@@ -14,6 +14,7 @@ cursor = connection.cursor()
 usuarioID = None
 estacionamientoID = None
 registroID = None
+fecha_entrada = None
 
 # Validar el usuario y si ese usuario está activo
 def validar_usuario(uid):
@@ -50,6 +51,7 @@ def validar_registro():
     # Obtener la fecha actual
     fecha_actual = datetime.date.today().strftime('%Y-%m-%d')
 
+    # Consulta para obtener el registro de entrada del usuario en el estacionamiento en el día actual
     consulta = f"SELECT * FROM registros WHERE usuario_id = '{usuarioID}' AND estacionamiento_id = '{estacionamientoID}' AND fecha_hora_entrada IS NOT NULL AND fecha_hora_salida IS NULL AND fecha_hora_entrada::date = '{fecha_actual}'"
     cursor.execute(consulta)
     result = cursor.fetchone()
@@ -61,6 +63,51 @@ def validar_registro():
     else:
         return True
 
+# Función para validar si un usuario ya ha ingresado en el estacionamiento y no haya salido en el día
+def validar_registro_salida():
+    global usuarioID
+    global estacionamientoID
+    global registroID
+    global fecha_entrada
+
+    # Datos de prueba
+    usuarioID = 2
+    estacionamientoID = 1
+
+    # Obtener la fecha actual
+    fecha_actual = datetime.date.today().strftime('%Y-%m-%d')
+
+    # Consulta para obtener el registro de entrada del usuario en el estacionamiento
+    consulta = f"SELECT * FROM registros WHERE usuario_id = '{usuarioID}' AND estacionamiento_id = '{estacionamientoID}' AND fecha_hora_entrada IS NOT NULL AND fecha_hora_salida IS NULL"
+
+    cursor.execute(consulta)
+    resultados = cursor.fetchall()
+    print(resultados)
+
+    for result in resultados:
+        fecha_entrada = result[3] if result is not None else None
+        fecha_entrada_registro = fecha_entrada.date().strftime('%Y-%m-%d')
+
+        # Validar si la fecha de entrada del registro es diferente a la fecha actual
+        if fecha_entrada_registro != fecha_actual:
+            registroID = result[0] if result is not None else None
+            fecha_entrada = datetime.datetime.strptime(fecha_entrada, '%Y-%m-%d %H:%M:%S')
+
+        # Llamar a agregar_registro_salida para cada registro sin salida
+        agregar_registro_salida()
+
+# Función para agregar la fecha y hora de salida al registro si el usuario ya ha ingresado en el estacionamiento y no ha salido en el día
+def agregar_registro_salida():
+    global registroID
+    global fecha_entrada
+
+    fecha_hora = fecha_entrada.replace(hour=23, minute=59, second=59) # Establecer la hora de salida a las 23:59:59
+    fecha_hora_salida = fecha_hora.strftime('%Y-%m-%d %H:%M:%S')
+
+    consulta = f"UPDATE registros SET fecha_hora_salida = '{fecha_hora_salida}' WHERE id = '{registroID}'"
+    cursor.execute(consulta)
+
+# Función para validar si el estacionamiento está lleno
 def estacionamiento_lleno():
     global estacionamientoID
     consulta = f"SELECT * FROM estacionamientos WHERE id = '{estacionamientoID}' AND ocupado < capacidad"
@@ -73,6 +120,7 @@ def estacionamiento_lleno():
     else: # Si el estacionamiento no está lleno
         return True
 
+# Función para validar si el usuario está habilitado para el día actual
 def usuario_habilitado():
     dias_semana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
 
@@ -154,6 +202,7 @@ def comunicar_puerto_serial():
                 # Validar si el dato pertenece a un usuario
                 if validar_estacionamiento(datoEstacionamiento):
                     if validar_usuario(datoUID):
+                        validar_registro_salida() # Validar si el usuario ya ha ingresado en el estacionamiento y no ha salido en ese día y agregar la fecha y hora de salida al registro con la hora de salida a las 23:59:59
                         if validar_registro(): # Si el usuario ya ha ingresado en el estacionamiento en el día actual
                             actualizar_registro_salida()
                             restar_ocupado()
@@ -180,4 +229,6 @@ def comunicar_puerto_serial():
         ser.close() # Cerrar el puerto serial
 
 # Ejecutar la función principal
-comunicar_puerto_serial()
+# comunicar_puerto_serial()
+
+validar_registro_salida()

@@ -9,6 +9,7 @@ export default defineConfig({
         }),
     ],
     server: {
+        https: true,
         hmr: {
             host: 'localhost',
             protocol: 'ws',

@@ -156,6 +156,7 @@
                         title: 'El puerto serial no está disponible o está ocupado.',
                         text: 'Por favor, verifica tu puerto serial.',
                     });
+                    console.error('Error al abrir el puerto serie:', error);
                 }
             }
         });

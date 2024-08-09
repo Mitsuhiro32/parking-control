@@ -4,7 +4,7 @@
     <br>
     <div class="container-fluid">
         <div class="row">
-            @foreach ($estacionamientos as $e)
+            @foreach ($estacionamientos->sortBy('id') as $e)
                 @if ($e->estado == true)
                     <div class="col-md-6">
                         <div class="card">

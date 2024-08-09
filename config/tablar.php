@@ -155,7 +155,7 @@ return [
             'can' => ['registros.index', 'registros.view']
         ],
         [
-            'text' => 'Auditorias',
+            'text' => 'Auditorías',
             'icon' => 'ti ti-eye-search',
             'route' => 'auditorias.index',
             'can' => 'auditoria',

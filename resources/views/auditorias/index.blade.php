@@ -4,11 +4,11 @@
     <div class="container">
         <div class="col">
             <br>
-            <h1>Auditorias</h1>
+            <h1>Auditorías</h1>
             <div class="btn-group d-flex justify-content-between" role="group" aria-label="Menu">
-                <button type="button" class="btn btn-outline-primary active" onclick="mostrarTabla('usuario')" id="btn-usuario">Auditoria de Usuarios</button>
-                <button type="button" class="btn btn-outline-primary" onclick="mostrarTabla('estacionamiento')" id="btn-estacionamiento">Auditoria de Estacionamientos</button>
-                <button type="button" class="btn btn-outline-primary" onclick="mostrarTabla('dia-usuario')" id="btn-dia-usuario">Auditoria de Días Hábiles de Usuarios</button>
+                <button type="button" class="btn btn-outline-primary active" onclick="mostrarTabla('usuario')" id="btn-usuario">Auditoría de Usuarios</button>
+                <button type="button" class="btn btn-outline-primary" onclick="mostrarTabla('estacionamiento')" id="btn-estacionamiento">Auditoría de Estacionamientos</button>
+                <button type="button" class="btn btn-outline-primary" onclick="mostrarTabla('dia-usuario')" id="btn-dia-usuario">Auditoría de Días Hábiles de Usuarios</button>
             </div>
         </div>
         <br>
