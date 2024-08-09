@@ -129,7 +129,7 @@ class RegistroDatatable extends DataTableComponent
                 }),
             Column::make('Acciones')
                 ->label(
-                    fn($row) => view(('Registros.actions'), compact('row'))->with(['usuarios' => $usuarios, 'estacionamientos' => $estacionamientos])
+                    fn($row) => view(('registros.actions'), compact('row'))->with(['usuarios' => $usuarios, 'estacionamientos' => $estacionamientos])
                 )
         ];
     }

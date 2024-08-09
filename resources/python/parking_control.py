@@ -4,7 +4,8 @@ import datetime
 import psycopg2
 
 # Configurar la conexión con la base de datos
-connection = psycopg2.connect(user='postgres', password='postgres32', host='localhost', dbname='parking')
+# connection = psycopg2.connect(user='postgres', password='postgres32', host='localhost', dbname='parking') # Conexión local
+connection = psycopg2.connect(user='parking_owner', password='eDqngUYu3Xr9', host='ep-floral-frog-a56nanx1.us-east-2.aws.neon.tech', dbname='parking') # Conexión remota
 connection.autocommit = True
 
 # Crear un cursor para ejecutar consultas
@@ -70,10 +71,6 @@ def validar_registro_salida():
     global registroID
     global fecha_entrada
 
-    # Datos de prueba
-    usuarioID = 2
-    estacionamientoID = 1
-
     # Obtener la fecha actual
     fecha_actual = datetime.date.today().strftime('%Y-%m-%d')
 
@@ -91,7 +88,7 @@ def validar_registro_salida():
         # Validar si la fecha de entrada del registro es diferente a la fecha actual
         if fecha_entrada_registro != fecha_actual:
             registroID = result[0] if result is not None else None
-            fecha_entrada = datetime.datetime.strptime(fecha_entrada, '%Y-%m-%d %H:%M:%S')
+            fecha_entrada = datetime.datetime.strptime(fecha_entrada.strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S')
 
         # Llamar a agregar_registro_salida para cada registro sin salida
         agregar_registro_salida()
@@ -106,6 +103,7 @@ def agregar_registro_salida():
 
     consulta = f"UPDATE registros SET fecha_hora_salida = '{fecha_hora_salida}' WHERE id = '{registroID}'"
     cursor.execute(consulta)
+    restar_ocupado()
 
 # Función para validar si el estacionamiento está lleno
 def estacionamiento_lleno():
@@ -153,6 +151,7 @@ def registrar_entrada():
 
     consulta = f"INSERT INTO registros (usuario_id, estacionamiento_id, fecha_hora_entrada) VALUES ('{usuarioID}','{estacionamientoID}','{timestamp}')"
     cursor.execute(consulta)
+    sumar_ocupado()
 
 # Función para actualizar el registro de entrada
 def actualizar_registro_salida():
@@ -165,6 +164,7 @@ def actualizar_registro_salida():
 
     consulta = f"UPDATE registros SET fecha_hora_salida = '{timestamp}' WHERE id = '{registroID}'"
     cursor.execute(consulta)
+    restar_ocupado()
 
 # Función para sumar la ocupación del estacionamiento
 def sumar_ocupado():
@@ -205,13 +205,11 @@ def comunicar_puerto_serial():
                         validar_registro_salida() # Validar si el usuario ya ha ingresado en el estacionamiento y no ha salido en ese día y agregar la fecha y hora de salida al registro con la hora de salida a las 23:59:59
                         if validar_registro(): # Si el usuario ya ha ingresado en el estacionamiento en el día actual
                             actualizar_registro_salida()
-                            restar_ocupado()
                             ser.write(b'Hasta Pronto....') # Envía datos al puerto serie
                         else: # Si el usuario no ha ingresado en el estacionamiento en el día actual
                             if estacionamiento_lleno(): # Validar si el estacionamiento está lleno
                                 if usuario_habilitado(): # Validar si el usuario está habilitado
                                     registrar_entrada()
-                                    sumar_ocupado()
                                     ser.write(b'Acceso Permitido') # Envía datos al puerto serie
                                 else: # Si el usuario no está habilitado para ese día
                                     ser.write(b'Hoy no es tu dia') # Envía datos al puerto serie
@@ -229,6 +227,4 @@ def comunicar_puerto_serial():
         ser.close() # Cerrar el puerto serial
 
 # Ejecutar la función principal
-# comunicar_puerto_serial()
-
-validar_registro_salida()
+comunicar_puerto_serial()
