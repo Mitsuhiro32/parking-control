@@ -202,11 +202,11 @@ def comunicar_puerto_serial():
                 # Validar si el dato pertenece a un usuario
                 if validar_estacionamiento(datoEstacionamiento):
                     if validar_usuario(datoUID):
-                        validar_registro_salida() # Validar si el usuario ya ha ingresado en el estacionamiento y no ha salido en ese día y agregar la fecha y hora de salida al registro con la hora de salida a las 23:59:59
                         if validar_registro(): # Si el usuario ya ha ingresado en el estacionamiento en el día actual
                             actualizar_registro_salida()
                             ser.write(b'Hasta Pronto....') # Envía datos al puerto serie
                         else: # Si el usuario no ha ingresado en el estacionamiento en el día actual
+                            validar_registro_salida() # Validar si el usuario ya ha ingresado en el estacionamiento y no ha salido en ese día, agregar la fecha y hora de salida al registro con la hora de salida a las 23:59:59
                             if estacionamiento_lleno(): # Validar si el estacionamiento está lleno
                                 if usuario_habilitado(): # Validar si el usuario está habilitado
                                     registrar_entrada()
