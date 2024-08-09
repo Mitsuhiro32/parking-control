@@ -95,6 +95,7 @@ class RegistroDatatable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->sortable()
+                ->deselected() 
                 ->setSortingPillDirections('Asc', 'Desc'),
             Column::make("Usuario", "usuario_id")
                 ->sortable()
