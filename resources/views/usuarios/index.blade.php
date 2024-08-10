@@ -40,38 +40,39 @@
                                     <label for="name">Nombre</label>
                                     <br><br>
                                     <input type="text" class="form-control" name="nombre" id="nombre"
-                                        placeholder="Nombre">
+                                        placeholder="Nombre" >
                                     <br>
                                     <label for="apellido">Apellido</label>
                                     <br><br>
                                     <input type="text" class="form-control" name="apellido" id="apellido"
-                                        placeholder="Apellido">
+                                        placeholder="Apellido" >
                                     <br>
                                     <label for="ci">Cédula de identidad</label>
                                     <br><br>
                                     <input type="text" class="form-control" name="ci" id="ci"
                                         placeholder="Cédula"
-                                        oninput="this.value = this.value.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.')">
+                                        oninput="this.value = this.value.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.')"
+                                        >
                                     <br>
                                     <label for="telefono">Teléfono</label>
                                     <br><br>
                                     <input type="tel" class="form-control" name="telefono" id="telefono"
-                                        placeholder="Teléfono">
+                                        placeholder="Teléfono" >
                                     <br>
                                     <label for="email">Correo Electrónico</label>
                                     <br><br>
                                     <input type="email" class="form-control" name="email" id="email"
-                                        placeholder="Correo Electrónico">
+                                        placeholder="Correo Electrónico" >
                                     <br>
                                     <label for="password">Contraseña</label>
                                     <br><br>
                                     <input type="password" name="password" class="form-control" placeholder="Contraseña"
-                                        autocomplete="off">
+                                        autocomplete="off" >
                                     <br>
                                     <label for="password_confirmation">Confirmar Contraseña</label>
                                     <br><br>
                                     <input type="password" name="password_confirmation" class="form-control"
-                                        placeholder="Confirmar Contraseña" autocomplete="off">
+                                        placeholder="Confirmar Contraseña" autocomplete="off" >
                                     <br>
                                     <div class="form-group">
                                         <label for="uid_tarjeta">UID Tarjeta</label>
@@ -85,7 +86,7 @@
                                     </div>
                                     <label for="rol">Rol</label>
                                     <br><br>
-                                    <select name="rol" id="rol" class="form-control">
+                                    <select name="rol" id="rol" class="form-control" >
                                         <option value="">Seleccione un rol</option>
                                         @foreach ($roles as $rol)
                                             @if ($rol->name !== 'Super Administrador')
@@ -171,27 +172,30 @@
             writer.releaseLock(); // Liberar el writer
 
             // Leer datos
-            const reader = port.readable.getReader();
-            const decoder = new TextDecoder();
+            while (port.readable) {
+                const reader = port.readable.getReader();
+                const decoder = new TextDecoder();
 
-            try {
-                while (true) {
-                    const {
-                        value,
-                        done
-                    } = await reader.read();
-                    if (done) {
-                        break;
+                try {
+                    while (true) {
+                        const {
+                            value,
+                            done
+                        } = await reader.read();
+                        if (done) {
+                            reader.releaseLock();
+                            break;
+                        }
+                        tarjetaUID += decoder.decode(value); // Concatenar los valores leídos
+                        console.log('UID Tarjeta: ' + tarjetaUID);
+                        document.getElementById('uid_tarjeta').value = tarjetaUID;
                     }
-                    tarjetaUID += decoder.decode(value); // Concatenar los valores leídos
-                    console.log('UID Tarjeta: ' + tarjetaUID);
-                    document.getElementById('uid_tarjeta').value = tarjetaUID;
+                } catch (error) {
+                    console.log(error);
+                } finally {
+                    writer.releaseLock();
+                    reader.releaseLock();
                 }
-            } catch (error) {
-                console.log(error);
-            } finally {
-                writer.releaseLock();
-                reader.releaseLock();
             }
         });
 
