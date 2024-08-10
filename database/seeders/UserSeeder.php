@@ -14,13 +14,13 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'nombre' => 'Admin',
+            'nombre' => 'Super Admin',
             'apellido' => 'Admin',
             'ci' => '1.234.567',
             'telefono' => '0985456123',
             'email' => 'admin@admin.com',
-            'password' => bcrypt('admin123'),
-            'password_confirmation' => bcrypt('admin123'),
+            'password' => bcrypt('Admin123'),
+            'password_confirmation' => bcrypt('Admin123'),
             'rol' => 'Super Administrador',
             'autor' => 'Mitsuhiro',
         ])->assignRole('Super Administrador');

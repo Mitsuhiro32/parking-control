@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('facultad');
             $table->string('autor');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
