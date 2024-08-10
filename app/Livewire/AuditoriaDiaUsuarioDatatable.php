@@ -115,8 +115,15 @@ class AuditoriaDiaUsuarioDatatable extends DataTableComponent
                 ->searchable()
                 ->setSortingPillDirections('Asc', 'Desc')
                 ->format(function ($value) {
-                    $usuario = User::find($value);
-                    return $usuario ? $usuario->nombre : '';
+                    $ids = explode(' -> ', $value);
+                    $firstId = $ids[0];
+                    $secondId = $ids[1];
+                    $firstUser = User::find($firstId);
+                    $secondUser = User::find($secondId);
+                    $formattedValue = $firstUser ? $firstUser->nombre : '';
+                    $formattedValue .= ' -> ';
+                    $formattedValue .= $secondUser ? $secondUser->nombre : '';
+                    return $formattedValue;
                 }),
             Column::make("Día", "dia")
                 ->sortable()
