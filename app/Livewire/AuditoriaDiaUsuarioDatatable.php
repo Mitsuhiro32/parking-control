@@ -121,14 +121,15 @@ class AuditoriaDiaUsuarioDatatable extends DataTableComponent
                         $secondId = $ids[1];
                         $firstUser = User::find($firstId);
                         $secondUser = User::find($secondId);
+                        $formattedValue = $firstUser ? $firstUser->nombre : '';
+                        $formattedValue .= ' -> ';
+                        $formattedValue .= $secondUser ? $secondUser->nombre : '';
+                        return $formattedValue;
                     } else {
-                        $firstId = $value;
-                        $firstUser = User::find($firstId);
+                        $userId = $value;
+                        $usuario = User::find($userId);
+                        return $usuario ? $usuario->nombre : '';
                     }
-                    $formattedValue = $firstUser ? $firstUser->nombre : '';
-                    $formattedValue .= ' -> ';
-                    $formattedValue .= $secondUser ? $secondUser->nombre : '';
-                    return $formattedValue;
                 }),
             Column::make("Día", "dia")
                 ->sortable()
