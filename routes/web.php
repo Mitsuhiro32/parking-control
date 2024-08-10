@@ -36,3 +36,7 @@ Route::resource('registros', RegistroController::class)->only('index')->middlewa
 
 // Auditoria
 Route::resource('auditorias', AuditoriaController::class)->only('index')->middleware(['auth','verified']);
+
+Route::fallback(function () {
+    return redirect('/');
+});
