@@ -116,8 +116,13 @@ class AuditoriaDiaUsuarioDatatable extends DataTableComponent
                 ->setSortingPillDirections('Asc', 'Desc')
                 ->format(function ($value) {
                     $ids = explode(' -> ', $value);
-                    $firstId = $ids[0];
-                    $secondId = $ids[1];
+                    if (count($ids) === 2) {
+                        $firstId = $ids[0];
+                        $secondId = $ids[1];
+                    } else {
+                        $firstId = $value;
+                        $secondId = '';
+                    }
                     $firstUser = User::find($firstId);
                     $secondUser = User::find($secondId);
                     $formattedValue = $firstUser ? $firstUser->nombre : '';
