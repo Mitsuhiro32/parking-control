@@ -51,8 +51,7 @@ class EstacionamientoDatatable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->sortable()
-                ->setSortingPillDirections('Asc', 'Desc')
-                ->deselected(),
+                ->setSortingPillDirections('Asc', 'Desc'),
             Column::make("Nombre", "nombre")
                 ->sortable()
                 ->searchable(),

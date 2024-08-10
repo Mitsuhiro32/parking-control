@@ -13,7 +13,6 @@
                     </ul>
                 </div>
             @endif
-            <br>
             <h1>Días Hábiles de Usuarios</h1>
         </div>
 

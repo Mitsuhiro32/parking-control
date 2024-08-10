@@ -13,7 +13,6 @@
                     </ul>
                 </div>
             @endif
-            <br>
             <h1>Estacionamientos</h1>
         </div>
 
