@@ -119,12 +119,12 @@ class AuditoriaDiaUsuarioDatatable extends DataTableComponent
                     if (count($ids) === 2) {
                         $firstId = $ids[0];
                         $secondId = $ids[1];
+                        $firstUser = User::find($firstId);
+                        $secondUser = User::find($secondId);
                     } else {
                         $firstId = $value;
-                        $secondId = '';
+                        $firstUser = User::find($firstId);
                     }
-                    $firstUser = User::find($firstId);
-                    $secondUser = User::find($secondId);
                     $formattedValue = $firstUser ? $firstUser->nombre : '';
                     $formattedValue .= ' -> ';
                     $formattedValue .= $secondUser ? $secondUser->nombre : '';
