@@ -63,7 +63,7 @@ class EstacionamientoController extends Controller
                 'nombre' => 'required',
                 'capacidad' => 'required',
             ], $messages);
-            
+
             $estacionamiento->fill($validation);
             $estacionamiento->autor = auth()->user()->nombre;
             $estacionamiento->save();

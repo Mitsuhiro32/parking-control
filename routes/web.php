@@ -29,14 +29,10 @@ Route::get('/register', function () {
 
 Route::resource('/', HomeController::class)->only('index')->middleware(['can:home','auth','verified']);
 
-Route::resource('estacionamientos', EstacionamientoController::class)->only('index','store','update')->middleware(['auth','verified']);
-Route::resource('diaUsuarios', DiaUsuarioController::class)->only('index','store','update','destroy')->middleware(['auth','verified']);
-Route::resource('usuarios', UsuarioController::class)->only('index','store','update')->middleware(['auth','verified']);
-Route::resource('registros', RegistroController::class)->only('index')->middleware(['auth','verified']);
+Route::resource('estacionamientos', EstacionamientoController::class)->only('index','store','update')->middleware(['can:estacionamientos.index','can:estacionamientos.store','can:estacionamientos.update','auth','verified']);
+Route::resource('diaUsuarios', DiaUsuarioController::class)->only('index','store','update','destroy')->middleware(['can:diaUsuarios.index','can:diaUsuarios.store','can:diaUsuarios.update','can:diaUsuarios.delete','auth','verified']);
+Route::resource('usuarios', UsuarioController::class)->only('index','store','update')->middleware(['can:usuarios.index','can:usuarios.store','can:usuarios.update','auth','verified']);
+Route::resource('registros', RegistroController::class)->only('index')->middleware(['can:registros.index', 'can:registros.view','auth','verified']);
 
 // Auditoria
-Route::resource('auditorias', AuditoriaController::class)->only('index')->middleware(['auth','verified']);
-
-Route::fallback(function () {
-    return redirect('/');
-});
+Route::resource('auditorias', AuditoriaController::class)->only('index')->middleware(['can:auditoria','auth','verified']);
